@@ -1,0 +1,156 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-primary mr-2"
+                            (click)="openNew()"></button>
+                        <button pButton pRipple label=" Borrar" icon="pi pi-trash" class="p-button-danger"
+                            (click)="alertSelectedItems()"
+                            [disabled]="!selectedItems || !selectedItems.length"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Actualizar" icon="pi pi-refresh" class="p-button-help"
+                        (click)="getUsuarios()"></button>
+                </ng-template>
+            </p-toolbar>
+
+
+
+            <p-table #dt [value]="datosDB" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['name','email','role_name']" [rows]="10" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate=" {first} - {last} de {totalRecords} registros" [(selection)]="selectedItems"
+                selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Usuarios</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
+                                class="w-full sm:w-auto" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="role_name">Perfil <p-sortIcon field="role_name"></p-sortIcon></th>
+
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        </td>
+
+                        <td style="min-width: 10rem;">{{item.name | titlecase}}</td>
+                        <td>{{item.email }}</td>
+                        <td>{{item.role_name }}</td>
+
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2" (click)="openEdit(item)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                    (click)="deleteAlert(item)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px',height:'80%' }"
+            header="{{ crear ? 'Nuevo usuario' : 'Actualizar usuario' }}" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="name">Nombre</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="item.name" required autofocus
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.name }" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name">El item es requerido.</small>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="item.email" required autofocus
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.email }" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.email">El item es requerido.</small>
+                </div>
+
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="dni">Cédula</label>
+                        <p-inputNumber id="dni" [(ngModel)]="item.dni" autofocus
+                            [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.dni }"></p-inputNumber>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El item es requerido.</small>
+                    </div>
+
+                    <div class="field col">
+                        <label for="">Perfil</label>
+
+                        <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="name"
+                            placeholder="Seleccione" emptyMessage="No hay resultados"
+                            [ngClass]="{ 'ng-invalid ng-dirty': submitted && !perfil.id }">
+                            <ng-template pTemplate="selectedItem">
+                                <span *ngIf="perfil">{{ perfil.name }}</span>
+                            </ng-template>
+
+                            <ng-template let-perfile pTemplate="item">
+                                <span>{{ perfile.name }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !perfil.id">El campo es
+                            requerido.</small>
+                    </div>
+
+                </div>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="{{ crear ? 'Guardar' : 'Actualizar' }}" icon="pi pi-check"
+                    class="p-button-text" (click)="crear ? saveItem() : editItem()"></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="itemDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span *ngIf="item">Esta seguro que quieres eliminar el usuario <b>{{ item.name }}</b>?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="itemDeleteDialog = false"></button>
+                <!--  <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="deleteItem()"></button> -->
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog [(visible)]="itemsDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+            <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                <span>Esta seguro que desea eliminar los usuarios seleccionados?</span>
+            </div>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                    (click)="itemsDeleteDialog = false"></button>
+                <!-- <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                    (click)="deleteSelectedItems()"></button> -->
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
