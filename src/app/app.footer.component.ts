@@ -5,9 +5,9 @@ import {Component} from '@angular/core';
     template: `
         <div class="layout-footer">
 			<div class="logo-text">
-				<img style="border-radius: 50%;" src="assets/images/edu.jpg" alt="mirage-layout" />
+				<img style="border-radius: 50%;" src="assets/images/edu.png" alt="mirage-layout" />
 				<div class="text">
-					<h1>EduSoft</h1>
+					<h1>DAIJ</h1>
 					<span>Powered by Zaga dev - {{fecha | date:'yyyy'}}</span>
 				</div>
 			</div>

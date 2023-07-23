@@ -6,9 +6,9 @@ import { rutas } from 'src/env/rutas'
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosService {
+export class MateriasService {
 
-  prefix:string = 'users'
+  prefix:string = 'maters'
 
   constructor(private user: AuthService, private http: HttpClient) { }
 
@@ -73,26 +73,7 @@ export class UsuariosService {
   }
 
 
-  /* async deleteSelectedItems(dataPost: any) {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer' + this.user.token,
-      });
-
-      this.http.post(rutas.ruta +this.prefix+'/deleteMany', dataPost, { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(false);
-        }
-      });
-    });
-  } */
-
-  async getUsuarios() {
+  async getMaterias() {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
@@ -110,5 +91,6 @@ export class UsuariosService {
       });
     });
   }
+
 
 }

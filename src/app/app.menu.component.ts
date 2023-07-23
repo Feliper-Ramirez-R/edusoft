@@ -15,11 +15,18 @@ export class AppMenuComponent implements OnInit {
         this.model = [
             {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home']},
             {
-                label: 'Maestros', icon: 'pi pi-fw pi-desktop', routerLink: ['/usuarios'],
+                label: 'Administrador', icon: 'pi pi-fw pi-desktop', routerLink: ['/usuarios'],
                 items: [
                     {label: 'Usuarios', icon: 'pi pi-fw pi-users', routerLink: ['/pages/usuarios']},
-                    {label: 'Pao aun no funciono', icon: 'shower', routerLink: ['/uikit/input']},
+                    {label: 'Grupos', icon: 'pi pi-fw pi-sitemap', routerLink: ['/pages/grupos']},
+                    {label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/materias']},
                    
+                ]
+            },
+            {
+                label: 'Profesores', icon: 'pi pi-fw pi-user-plus', routerLink: ['/profesores'],
+                items: [
+                    {label: 'Mis materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-materias']}, 
                 ]
             },
            /*  {

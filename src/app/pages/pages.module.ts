@@ -28,6 +28,19 @@ import { GalleriaModule } from 'primeng/galleria';
 import { CarouselModule } from 'primeng/carousel';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { GruposComponent } from './views/admin/grupos/grupos.component';
+import { MateriasComponent } from './views/admin/materias/materias.component';
+import { PanelModule } from 'primeng/panel';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MisMateriasComponent } from './views/profesores/mis-materias/mis-materias.component';
+import { MenuModule } from 'primeng/menu';
+import { DataViewModule } from 'primeng/dataview';
+import { OrderListModule } from 'primeng/orderlist';
+import { PickListModule } from 'primeng/picklist';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
+
 
 
 
@@ -35,8 +48,11 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @NgModule({
   declarations: [
-   HomeComponent,
-   UsuariosComponent,
+    HomeComponent,
+    UsuariosComponent,
+    GruposComponent,
+    MateriasComponent,
+    MisMateriasComponent,
   ],
   imports: [
     PagesRoutingModule,
@@ -65,7 +81,15 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     CarouselModule,
     ScrollTopModule,
     ScrollPanelModule,
-    MenubarModule
+    MenubarModule,
+    PanelModule,
+    PanelMenuModule,
+    SplitButtonModule,
+    MenuModule,
+    DataViewModule,
+    OrderListModule,
+    PickListModule,
+    InputSwitchModule
   ]
 })
 export class PagesModule { }

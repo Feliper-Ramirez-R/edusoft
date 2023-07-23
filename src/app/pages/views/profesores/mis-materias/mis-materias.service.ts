@@ -6,21 +6,21 @@ import { rutas } from 'src/env/rutas'
 @Injectable({
   providedIn: 'root'
 })
-export class UsuariosService {
+export class MisMateriasService {
 
-  prefix:string = 'users'
+  prefix:string = 'teacher'
 
   constructor(private user: AuthService, private http: HttpClient) { }
 
 
-  async saveItem(dataPost: any) {
+  async getMisMaterias() {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.post(rutas.ruta + this.prefix, dataPost, { headers }).subscribe({
+      this.http.get(rutas.ruta + this.prefix+'/myMaters',{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -33,14 +33,14 @@ export class UsuariosService {
   }
 
 
-  async editItem(dataPost: any,id:any) {
+  async crearVideo(dataPost:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.patch(rutas.ruta + this.prefix+'/'+id,dataPost, { headers }).subscribe({
+      this.http.post(rutas.ruta + this.prefix+'/addVideoClass',dataPost,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -53,14 +53,34 @@ export class UsuariosService {
   }
 
 
-  async deleteItem(id: any) {
+  async editarVideo(dataPost:any,id:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.delete(rutas.ruta + this.prefix+'/'+id, { headers }).subscribe({
+      this.http.patch(rutas.ruta + this.prefix+'/updateVideoClass/'+id,dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+  
+  async crearCuestionario(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/',dataPost,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -73,33 +93,14 @@ export class UsuariosService {
   }
 
 
-  /* async deleteSelectedItems(dataPost: any) {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer' + this.user.token,
-      });
-
-      this.http.post(rutas.ruta +this.prefix+'/deleteMany', dataPost, { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(false);
-        }
-      });
-    });
-  } */
-
-  async getUsuarios() {
+  async crearArchivo(dataPost:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.get(rutas.ruta +this.prefix, { headers }).subscribe({
+      this.http.post(rutas.ruta + this.prefix+'/uploadFile',dataPost,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -111,4 +112,44 @@ export class UsuariosService {
     });
   }
 
+
+  async editarArchivo(dataPost:any,id:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.patch(rutas.ruta + this.prefix+'/updateFile/'+id,dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
+
+  async crearLibre(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/',dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
 }

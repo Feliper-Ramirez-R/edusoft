@@ -1,0 +1,168 @@
+<div class="grid">
+    <div *ngFor="let materia of materias" class="col-12 md:col-6">
+        <div class="card">
+            <p-toolbar styleClass="mb-3">
+                <div class="p-toolbar-group-left flex flex-wrap">
+                    <h5>{{materia.name}}</h5>
+                </div>
+
+                <div class="p-toolbar-group-right">
+                    <p-toast></p-toast>
+                    <p-menu #menu [model]="options" [popup]="true"></p-menu>
+                    <button pButton type="button" (click)="menu.toggle($event);clickMateria(materia)"
+                        icon="pi pi-ellipsis-v"></button>
+                </div>
+            </p-toolbar>
+            <p-panel *ngFor="let semana of materia.weeks" header="Semana {{semana.week}}" [toggleable]="true"
+                [collapsed]="true" class="line-height-3" styleClass="mb-1">
+
+                <div >
+
+                    <div class="card widget-tasks">
+                        <div class="card-header">
+                            <div class="title">
+                                <h5>Tareas</h5>
+                            </div>
+                            <div class=" task-info">
+                                <span>Tienes</span><span class="highlighted"> {{semana.items.length}}
+                                    tareas</span><span> </span>
+                            </div>
+                        </div>
+                        <ul *ngFor="let actividad of semana.items" class="checkboxes">
+                            <li class="checkbox-row border-1 border-300 mb-1">
+                                <div class="grid ">
+                                    <div class="col-6 m-0 checkbox" [ngClass]="{ 'line-through': actividad.available ==0}">
+                                        <i class="{{actividad.type_id == 1?'pi pi-video mt-2':
+                                                    actividad.type_id == 2?'pi pi-file-export mt-2':
+                                                    actividad.type_id == 3?'pi pi-check-square mt-2':
+                                                    actividad.type_id == 4?'pi pi-question-circle mt-2':''}}"></i>
+
+                                        <p><a href="{{actividad.type_id == 1?actividad.url_class:
+                                                      actividad.type_id == 2?actividad.url_host+actividad.url_file:''}}" target="blank">{{actividad.name}}</a></p>
+                                    </div>
+
+                                    <div class="col-6 checkbox-row-info ">
+                                        <!-- <span class="time">hoy</span> -->
+                                        <i (click)="actividad.type_id == 1?openEditVideo(actividad):
+                                                    actividad.type_id == 2?openEditArchivo(actividad):''" class="pi pi-pencil" pTooltip="Editar"
+                                            tooltipPosition="top"></i>
+                                        <!-- <i class="pi pi-calendar"></i>
+                                            <i class="pi pi-bookmark"></i> -->
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [(visible)]="videoDialog" [style]="{ width: '450px',height:'90vh' }"
+    header="{{crear?'Nuevo video':'Actualizar video'}}" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <div class="formgrid grid">
+            <div class="field col-12">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="video.name" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !video.name }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.name">El item es requerido.</small>
+            </div>
+
+            <div class="field col-12">
+                <label for="email">Url</label>
+                <input type="text" pInputText id="name" [(ngModel)]="video.url_class" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !video.url_class }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.url_class">El item es requerido.</small>
+            </div>
+
+            <div class="field col-12">
+                <label for="">Semana</label>
+
+                <p-dropdown [options]="semanas" [(ngModel)]="semana" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !semana.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="semana">{{ semana.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-seman pTemplate="item">
+                        <span>{{ seman.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !semana.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div *ngIf="!crear" class="field col-12">
+                <label>{{checked?'Deshabilitar?':'Habilitar?'}}</label><br>
+                <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="videoDialog = false"></button>
+        <button pButton pRipple label="{{crear?'Guardar':'Actualizar'}}" icon="pi pi-check" class="p-button-text"
+            (click)="crear? crearVideo():editarVideo()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="archivoDialog" [style]="{ width: '450px',height:'90vh' }"
+    header="{{crear?'Nuevo archivo':'Actualizar archivo'}}" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <div class="formgrid grid">
+            <div class="field col-12">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="archivo.name" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !archivo.name }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.name">El item es requerido.</small>
+            </div>
+
+            <div class="field col-12">
+                <label for="email">Archivo</label>
+                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="archivo.archivo" required autofocus (change)="capturarFile($event)"
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !archivo.archivo && crear }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.archivo && crear">El item es requerido.</small>
+            </div>
+
+            <div class="field col-12">
+                <label for="">Semana</label>
+
+                <p-dropdown [options]="semanas" [(ngModel)]="semana" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !semana.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="semana">{{ semana.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-seman pTemplate="item">
+                        <span>{{ seman.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !semana.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div *ngIf="!crear" class="field col-12">
+                <label>{{checkedArchivo?'Deshabilitar?':'Habilitar?'}}</label><br>
+                <p-inputSwitch [(ngModel)]="checkedArchivo"></p-inputSwitch>
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="archivoDialog = false"></button>
+        <button pButton pRipple label="{{crear?'Guardar':'Actualizar'}}" icon="pi pi-check" class="p-button-text"
+            (click)="crear? crearArchivo():editarArchivo()"></button>
+    </ng-template>
+</p-dialog>

@@ -14,20 +14,20 @@
 
                 <ng-template pTemplate="right">
                     <button pButton pRipple label="Actualizar" icon="pi pi-refresh" class="p-button-help"
-                        (click)="getUsuarios()"></button>
+                        (click)="getMaterias()"></button>
                 </ng-template>
             </p-toolbar>
 
 
 
             <p-table #dt [value]="datosDB" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['name','email','role_name']" [rows]="10" [paginator]="true"
+                [globalFilterFields]="['name','program_name','user_count']" [rows]="10" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate=" {first} - {last} de {totalRecords} registros" 
                 selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Usuarios</h5>
+                        <h5 class="m-0">Materias</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."
@@ -38,8 +38,9 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-                        <th pSortableColumn="role_name">Perfil <p-sortIcon field="role_name"></p-sortIcon></th>
+                        <th pSortableColumn="name">Profesor <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="program_name">Fecha creación <p-sortIcon field="program_name"></p-sortIcon></th>
+                        <!-- <th pSortableColumn="user_count">Alumnos <p-sortIcon field="user_count"></p-sortIcon></th> -->
 
                         <th></th>
                     </tr>
@@ -47,14 +48,14 @@
                 <ng-template pTemplate="body" let-item>
                     <tr>
                         <td style="min-width: 10rem;">{{item.name | titlecase}}</td>
-                        <td>{{item.email }}</td>
-                        <td>{{item.role_name }}</td>
-
+                        <td style="min-width: 10rem;">{{item.teacher || 'Sin asignar'}}</td>
+                        <td>{{item.created_at | date:'YYYY-MM-dd' }}</td>
+                        
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-success mr-2" (click)="openEdit(item)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar grupo" tooltipPosition="top"
+                                    class="p-button-rounded p-button-primary mr-2" (click)="openEdit(item)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Eliminar grupo" tooltipPosition="top"
                                     (click)="deleteAlert(item)"></button>
                             </div>
                         </td>
@@ -65,7 +66,7 @@
         </div>
 
         <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px',height:'80%' }"
-            header="{{ crear ? 'Nuevo usuario' : 'Actualizar usuario' }}" [modal]="true" class="p-fluid">
+            header="{{ crear ? 'Nueva materia' : 'Actualizar grupo' }}" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
                     <label for="name">Nombre</label>
@@ -74,22 +75,30 @@
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name">El item es requerido.</small>
                 </div>
 
-                <div class="field">
-                    <label for="email">Email</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="item.email" required autofocus
-                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.email }" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.email">El item es requerido.</small>
-                </div>
+                 <div class="field">
+                        <label for="">Profesores</label>
+
+                        <p-dropdown [options]="profesores" [(ngModel)]="profesor" optionLabel="name"
+                            placeholder="Seleccione" emptyMessage="No hay resultados">
+                            <ng-template pTemplate="selectedItem">
+                                <span *ngIf="profesor">{{ profesor.name }}</span>
+                            </ng-template>
+
+                            <ng-template let-profe pTemplate="item">
+                                <span>{{ profe.name }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
 
                 <div class="formgrid grid">
-                    <div class="field col">
+                   <!--  <div class="field col">
                         <label for="dni">Cédula</label>
                         <input type="number" id="dni" pInputText [(ngModel)]="item.dni" autofocus
                             [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.dni }">
                         <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El item es requerido.</small>
                     </div>
-
-                    <div class="field col">
+ -->
+                   <!--  <div class="field col">
                         <label for="">Perfil</label>
 
                         <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="name"
@@ -105,7 +114,7 @@
                         </p-dropdown>
                         <small class="ng-dirty ng-invalid" *ngIf="submitted && !perfil.id">El campo es
                             requerido.</small>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -122,7 +131,7 @@
         <p-dialog [(visible)]="itemDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="item">Esta seguro que quieres eliminar el usuario <b>{{ item.name }}</b>?</span>
+                <span *ngIf="item">Esta seguro que quieres eliminar la materia <b>{{ item.name }}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
@@ -131,7 +140,8 @@
                     (click)="deleteItem()"></button>
             </ng-template>
         </p-dialog>
-
+     
+        
        <!--  <p-dialog [(visible)]="itemsDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
