@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="p-toolbar-group-right">
-                    <p-toast></p-toast>
+
                     <p-menu #menu [model]="options" [popup]="true"></p-menu>
                     <button pButton type="button" (click)="menu.toggle($event);clickMateria(materia)"
                         icon="pi pi-ellipsis-v"></button>
@@ -16,7 +16,7 @@
             <p-panel *ngFor="let semana of materia.weeks" header="Semana {{semana.week}}" [toggleable]="true"
                 [collapsed]="true" class="line-height-3" styleClass="mb-1">
 
-                <div >
+                <div>
 
                     <div class="card widget-tasks">
                         <div class="card-header">
@@ -31,21 +31,29 @@
                         <ul *ngFor="let actividad of semana.items" class="checkboxes">
                             <li class="checkbox-row border-1 border-300 mb-1">
                                 <div class="grid ">
-                                    <div class="col-6 m-0 checkbox" [ngClass]="{ 'line-through': actividad.available ==0}">
+                                    <div class="col-6 m-0 checkbox"
+                                        [ngClass]="{ 'line-through': actividad.available ==0}">
                                         <i class="{{actividad.type_id == 1?'pi pi-video mt-2':
                                                     actividad.type_id == 2?'pi pi-file-export mt-2':
                                                     actividad.type_id == 3?'pi pi-check-square mt-2':
                                                     actividad.type_id == 4?'pi pi-question-circle mt-2':''}}"></i>
 
-                                        <p><a href="{{actividad.type_id == 1?actividad.url_class:
+                                        <p *ngIf="actividad.type_id == 1 || actividad.type_id == 2"><a
+                                                href="{{actividad.type_id == 1?actividad.url_class:
                                                       actividad.type_id == 2?actividad.url_host+actividad.url_file:''}}" target="blank">{{actividad.name}}</a></p>
+
+                                        <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"><a
+                                                style="cursor: pointer;"
+                                                (click)="openMostrarCuestionario(actividad)">{{actividad.name}}</a></p>
                                     </div>
 
                                     <div class="col-6 checkbox-row-info ">
                                         <!-- <span class="time">hoy</span> -->
                                         <i (click)="actividad.type_id == 1?openEditVideo(actividad):
-                                                    actividad.type_id == 2?openEditArchivo(actividad):''" class="pi pi-pencil" pTooltip="Editar"
-                                            tooltipPosition="top"></i>
+                                                    actividad.type_id == 2?openEditArchivo(actividad):
+                                                    actividad.type_id == 3?openEditCuestionario(actividad):
+                                                    actividad.type_id == 4?openEditLibre(actividad):''"
+                                            class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></i>
                                         <!-- <i class="pi pi-calendar"></i>
                                             <i class="pi pi-bookmark"></i> -->
                                     </div>
@@ -58,6 +66,56 @@
         </div>
     </div>
 </div>
+
+<p-dialog [(visible)]="mostrarCuestionarioDialog" header="Cuestionario" [modal]="true"
+    [style]="{ width: '80%',height:'90vh' }" [maximizable]="true">
+    <div class="">
+        <div class="grid">
+            <div *ngFor="let pregunta of MostrarCuestionario; let i = index" class="col-12 lg:col-6 md:col-6">
+                <div class="card border-1 surface-border m-3">
+
+                    <div class="text-500 mb-3">pregunta # {{i+1}}</div>
+
+                    <span class="text-xl"> {{pregunta.question}}</span>
+
+                    <div class="field-checkbox mt-5 ">
+                        <p-radioButton [(ngModel)]="pregunta.answer"  value="a" [disabled]="true"></p-radioButton>
+                        <label [ngClass]="{' text-primary' : pregunta.answer == 'a' }">{{pregunta.option_a}}</label>
+                        <i *ngIf="pregunta.answer == 'a'" class="pi pi-check ml-2 text-xl text-primary"></i>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answer"  value="b" [disabled]="true"></p-radioButton>
+                        <label [ngClass]="{' text-primary' : pregunta.answer == 'b' }">{{pregunta.option_b}}</label>
+                        <i *ngIf="pregunta.answer == 'b'" class="pi pi-check ml-2 text-xl text-primary"></i>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answer"  value="c" [disabled]="true"></p-radioButton>
+                        <label [ngClass]="{' text-primary' : pregunta.answer == 'c' }">{{pregunta.option_c}}</label>
+                        <i *ngIf="pregunta.answer == 'c'" class="pi pi-check ml-2 text-xl text-primary"></i>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answer"  value="d" [disabled]="true"></p-radioButton>
+                        <label [ngClass]="{' text-primary' : pregunta.answer == 'd' }">{{pregunta.option_d}}</label>
+                        <i *ngIf="pregunta.answer == 'd'" class="pi pi-check ml-2 text-xl text-primary"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cerrar"
+            (click)="mostrarCuestionarioDialog = false"></button>
+        <!-- <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+            (click)="deletePregunta()"></button> -->
+    </ng-template>
+</p-dialog>
+
 
 
 <p-dialog [(visible)]="videoDialog" [style]="{ width: '450px',height:'90vh' }"
@@ -77,6 +135,23 @@
                 <input type="text" pInputText id="name" [(ngModel)]="video.url_class" required autofocus
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !video.url_class }" />
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.url_class">El item es requerido.</small>
+            </div>
+
+            <div class="field col-12 ">
+                <label for="">Grupo</label>
+
+                <p-dropdown [options]="grupos" [(ngModel)]="grupo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !grupo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="grupo">{{ grupo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-gru pTemplate="item">
+                        <span>{{ gru.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !grupo.id">El campo es
+                    requerido.</small>
             </div>
 
             <div class="field col-12">
@@ -128,9 +203,28 @@
 
             <div class="field col-12">
                 <label for="email">Archivo</label>
-                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="archivo.archivo" required autofocus (change)="capturarFile($event)"
+                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="archivo.archivo" required autofocus
+                    (change)="capturarFile($event)"
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !archivo.archivo && crear }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.archivo && crear">El item es requerido.</small>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.archivo && crear">El item es
+                    requerido.</small>
+            </div>
+
+            <div class="field col-12 ">
+                <label for="">Grupo</label>
+
+                <p-dropdown [options]="grupos" [(ngModel)]="grupo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !grupo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="grupo">{{ grupo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-gru pTemplate="item">
+                        <span>{{ gru.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !grupo.id">El campo es
+                    requerido.</small>
             </div>
 
             <div class="field col-12">
@@ -166,3 +260,460 @@
             (click)="crear? crearArchivo():editarArchivo()"></button>
     </ng-template>
 </p-dialog>
+
+
+<p-dialog [(visible)]="cuestionarioDialog" [style]="{ width: '80%',height:'90vh' }" [maximizable]="true"
+    header="{{crear?'Agrerar cuestionario':'Actualizar cuestionario'}} - {{cuestionario.name}}" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+
+        <div class=" grid">
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Grupo</label>
+
+                <p-dropdown [options]="grupos" [(ngModel)]="grupo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !grupo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="grupo">{{ grupo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-gru pTemplate="item">
+                        <span>{{ gru.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !grupo.id">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-4 md:col-6">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="cuestionario.name" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !cuestionario.name }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !cuestionario.name">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label>Intentos</label>
+                <input type="number" pInputText [(ngModel)]="cuestionario.attempts" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !cuestionario.attempts }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !cuestionario.attempts">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Tiempo</label>
+
+                <p-dropdown [options]="tiempos" [(ngModel)]="tiempo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !tiempo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="tiempo">{{ tiempo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-tie pTemplate="item">
+                        <span>{{ tie.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !tiempo.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Semana</label>
+
+                <p-dropdown [options]="semanas" [(ngModel)]="semana" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !semana.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="semana">{{ semana.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-seman pTemplate="item">
+                        <span>{{ seman.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !semana.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div *ngIf="!crear" class="field col-12">
+                <label>{{checkedCuestionario?'Deshabilitar?':'Habilitar?'}}</label><br>
+                <p-inputSwitch [(ngModel)]="checkedCuestionario"></p-inputSwitch>
+            </div>
+        </div>
+
+        <div *ngIf="crear" class="col-12 lg:col-12 ">
+            <div class="grid flex-column ">
+                <div class="col-12 ">
+                    <div class="card">
+                        <div class="grid">
+                            <div class="col-6 md:col-8">
+                                <h5>Preguntas</h5>
+                            </div>
+
+
+                            <div class="field col-12">
+                                <label>Pregunta</label>
+                                <input type="text" pInputText [(ngModel)]="pregunta.pregunta"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPregunta && !pregunta.pregunta }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !pregunta.pregunta">El
+                                    campo es requerido.</small>
+                            </div>
+
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label>Opcion A</label>
+                                <input type="text" pInputText [(ngModel)]="pregunta.option_a"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPregunta && !pregunta.opcion_a }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !pregunta.opcion_a">El
+                                    campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label>Opcion B</label>
+                                <input type="text" pInputText [(ngModel)]="pregunta.option_b"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPregunta && !pregunta.opcion_b }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !pregunta.opcion_b">El
+                                    campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label>Opcion C</label>
+                                <input type="text" pInputText [(ngModel)]="pregunta.option_c"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPregunta && !pregunta.opcion_c }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !pregunta.opcion_c">El
+                                    campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label>Opcion D</label>
+                                <input type="text" pInputText [(ngModel)]="pregunta.option_d"
+                                    [ngClass]="{ 'ng-dirty ng-invalid': submittedPregunta && !pregunta.opcion_d }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !pregunta.opcion_d">El
+                                    campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6">
+                                <label for="">Respuesta</label>
+
+                                <p-dropdown [options]="respuestas" [(ngModel)]="respuesta" optionLabel="name"
+                                    placeholder="Seleccione" emptyMessage="No hay resultados"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPregunta && !respuesta.id }">
+                                    <ng-template pTemplate="selectedItem">
+                                        <span *ngIf="respuesta">{{ respuesta.name }}</span>
+                                    </ng-template>
+
+                                    <ng-template let-resp pTemplate="item">
+                                        <span>{{ resp.name }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedPregunta && !respuesta.id">El campo
+                                    es
+                                    requerido.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-toolbar styleClass="mb-4">
+                    <ng-template pTemplate="left">
+
+                    </ng-template>
+
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Añadir pregunta" icon="pi pi-plus" class="p-button-primary mr-2"
+                            (click)="agregarPregunta()"></button>
+                    </ng-template>
+                </p-toolbar>
+            </div>
+
+
+        </div>
+
+
+        <!--      <div *ngIf="!crear" class="col-12">
+            <div class="card widget-tasks">
+                <p-toolbar styleClass="mb-4">
+                    <ng-template pTemplate="left">
+                        <div class="my-2">
+                            <button pButton pRipple label="Añadir pregunta" icon="pi pi-plus" class="p-button-primary mr-2"
+                                (click)="openNewPregunta()"></button>
+                        </div>
+                     
+                    </ng-template>
+                </p-toolbar>
+                <div class="card-header">
+                    <div class="title">
+                        <h5>Preguntas</h5>
+                    </div>
+                    <div class=" task-info">
+                        <span>El cuestionario tiene</span><span class="highlighted"> 2 preguntas</span><span></span>
+                    </div>
+                </div>
+                <ul class="checkboxes">
+                    <li class="checkbox-row">
+                        <div class="grid">
+                            <div class="col-6 checkbox">
+                                <p>Sales Report</p>
+                            </div>
+                            <div class="col-6 checkbox-row-info">
+                              
+                                <i class="pi pi-pencil" pTooltip="Editar" (click)="openEditPregunta(0)" tooltipPosition="top"></i>
+                                <i class="pi pi-trash" pTooltip="Eliminar" (click)="deleteAlert(0)" tooltipPosition="top"></i>
+                                
+                            </div>
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div> -->
+
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="cuestionarioDialog = false"></button>
+        <button pButton pRipple label="{{crear?'Crear cuestionario':'Actualizar'}}" icon="pi pi-check"
+            class="p-button-text" (click)="crear? crearCuestionario():editarCuestionario()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="libreDialog" [style]="{ width: '80%',height:'90vh' }" [maximizable]="true"
+    header="{{crear?'Agrerar cuestionario':'Actualizar cuestionario'}} - {{libre.name}}" [modal]="true"
+    class="p-fluid">
+    <ng-template pTemplate="content">
+
+
+        <div class=" grid">
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Grupo</label>
+
+                <p-dropdown [options]="grupos" [(ngModel)]="grupo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !grupo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="grupo">{{ grupo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-gru pTemplate="item">
+                        <span>{{ gru.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !grupo.id">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-4 md:col-6">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="libre.name" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !libre.name }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !libre.name">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label>Intentos</label>
+                <input type="number" pInputText [(ngModel)]="libre.attempts" required autofocus
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !libre.attempts }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !libre.attempts">El campo es
+                    requerido.</small>
+            </div>
+
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Tiempo</label>
+
+                <p-dropdown [options]="tiempos" [(ngModel)]="tiempo" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !tiempo.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="tiempo">{{ tiempo.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-tie pTemplate="item">
+                        <span>{{ tie.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !tiempo.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div class="field col-12 lg:col-2 md:col-6">
+                <label for="">Semana</label>
+
+                <p-dropdown [options]="semanas" [(ngModel)]="semana" optionLabel="name" placeholder="Seleccione"
+                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submitted && !semana.id }">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="semana">{{ semana.name }}</span>
+                    </ng-template>
+
+                    <ng-template let-seman pTemplate="item">
+                        <span>{{ seman.name }}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !semana.id">El campo es
+                    requerido.</small>
+            </div>
+
+            <div *ngIf="!crear" class="field col-12">
+                <label>{{checkedCuestionario?'Deshabilitar?':'Habilitar?'}}</label><br>
+                <p-inputSwitch [(ngModel)]="checkedCuestionario"></p-inputSwitch>
+            </div>
+        </div>
+
+        <div *ngIf="crear" class="col-12 lg:col-12 ">
+            <div class="grid flex-column ">
+                <div class="col-12 ">
+                    <div class="card">
+                        <div class="grid">
+                            <div class="col-6 md:col-8">
+                                <h5>Preguntas</h5>
+                            </div>
+
+
+                            <div class="field col-12">
+                                <label>Pregunta</label>
+                                <input type="text" pInputText [(ngModel)]="preguntaLibre.pregunta"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedPreguntaLibre && !preguntaLibre.pregunta }" />
+                                <small class="ng-dirty ng-invalid"
+                                    *ngIf="submittedPreguntaLibre && !preguntaLibre.pregunta">El
+                                    campo es requerido.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-toolbar styleClass="mb-4">
+                    <ng-template pTemplate="left">
+
+                    </ng-template>
+
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Añadir pregunta" icon="pi pi-plus" class="p-button-primary mr-2"
+                            (click)="agregarPreguntaLibre()"></button>
+                    </ng-template>
+                </p-toolbar>
+            </div>
+
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="libreDialog = false"></button>
+        <button pButton pRipple label="{{crear?'Crear cuestionario':'Actualizar'}}" icon="pi pi-check"
+            class="p-button-text" (click)="crear? crearLibre():editarLibre()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- <p-dialog [(visible)]="preguntasDialog" [style]="{ width: '450px',height:'90vy' }"
+header="{{ crearPregunta ? 'Nueva pregunta' : 'Actualizar pregunta' }}" [modal]="true" class="p-fluid">
+<ng-template pTemplate="content">
+
+
+      <div class="col-12 lg:col-12 ">
+            <div class="grid flex-column ">
+                <div class="col-12 ">
+                    <div class="card">
+                        <div class="grid">
+                            
+                            <div class="col-6 md:col-8">
+                                <h5>Preguntas</h5>
+                            </div>
+
+
+                            <div class="field col-12">
+                                <label >Pregunta</label>
+                                <input type="text" pInputText  [(ngModel)]="pregunta.pregunta"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedAdicPregunta && !pregunta.pregunta }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !pregunta.pregunta">El campo es requerido.</small>
+                            </div>
+
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label >Opcion A</label>
+                                <input type="text" pInputText  [(ngModel)]="pregunta.option_a"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedAdicPregunta && !pregunta.opcion_a }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !pregunta.opcion_a">El campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label >Opcion B</label>
+                                <input type="text" pInputText  [(ngModel)]="pregunta.option_b"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedAdicPregunta && !pregunta.opcion_b }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !pregunta.opcion_b">El campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label >Opcion C</label>
+                                <input type="text" pInputText  [(ngModel)]="pregunta.option_c"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': submittedAdicPregunta && !pregunta.opcion_c }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !pregunta.opcion_c">El campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6 ">
+                                <label >Opcion D</label>
+                                <input type="text" pInputText  [(ngModel)]="pregunta.option_d"
+                                    [ngClass]="{ 'ng-dirty ng-invalid': submittedAdicPregunta && !pregunta.opcion_d }" />
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !pregunta.opcion_d">El campo es requerido.</small>
+                            </div>
+
+                            <div class="field col-12 lg:col-6">
+                                <label for="">Respuesta</label>
+                
+                                <p-dropdown [options]="respuestas" [(ngModel)]="respuesta" optionLabel="name" placeholder="Seleccione"
+                                    emptyMessage="No hay resultados" [ngClass]="{ 'ng-invalid ng-dirty': submittedAdicPregunta && !respuesta.id }">
+                                    <ng-template pTemplate="selectedItem">
+                                        <span *ngIf="respuesta">{{ respuesta.name }}</span>
+                                    </ng-template>
+                
+                                    <ng-template let-resp pTemplate="item">
+                                        <span>{{ resp.name }}</span>
+                                    </ng-template>
+                                </p-dropdown>
+                                <small class="ng-dirty ng-invalid" *ngIf="submittedAdicPregunta && !respuesta.id">El campo es
+                                    requerido.</small>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+        (click)="preguntasDialog = false"></button>
+    <button pButton pRipple label="{{ crearPregunta ? 'Guardar' : 'Actualizar' }}" icon="pi pi-check"
+        class="p-button-text" (click)="crear ? adicionarPregunta() : editarPregunta()"></button>
+</ng-template>
+</p-dialog> -->
+
+
+
+
+<!-- <p-dialog [(visible)]="preguntaDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="item">Esta seguro que quieres eliminar la materia <b>{{ item.name }}</b>?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+            (click)="preguntaDeleteDialog = false"></button>
+         <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+            (click)="deletePregunta()"></button>
+    </ng-template>
+</p-dialog> -->

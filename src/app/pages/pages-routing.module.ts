@@ -6,6 +6,9 @@ import { UsuariosComponent } from './views/admin/usuarios/usuarios.component';
 import { GruposComponent } from './views/admin/grupos/grupos.component';
 import { MateriasComponent } from './views/admin/materias/materias.component';
 import { MisMateriasComponent } from './views/profesores/mis-materias/mis-materias.component';
+import { MisProgramasComponent } from './views/alumnos/mis-programas/mis-programas.component';
+import { MateriaComponent } from './views/alumnos/materia/materia.component';
+import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
 
 
 
@@ -38,6 +41,21 @@ const routes: Routes = [
         {
             path:'mis-materias',
             component: MisMateriasComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'mis-programas',
+            component: MisProgramasComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'materia/:id',
+            component: MateriaComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'cuestionario/:id',
+            component: CuestionarioComponent,
             canActivate:[AuthGuard]
         }, 
 

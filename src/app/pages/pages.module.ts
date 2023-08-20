@@ -39,6 +39,12 @@ import { DataViewModule } from 'primeng/dataview';
 import { OrderListModule } from 'primeng/orderlist';
 import { PickListModule } from 'primeng/picklist';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { MateriaComponent } from './views/alumnos/materia/materia.component';
+import { MisProgramasComponent } from './views/alumnos/mis-programas/mis-programas.component';
+import { DividerModule } from 'primeng/divider';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AccordionModule } from 'primeng/accordion';
+import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
 
 
 
@@ -53,6 +59,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     GruposComponent,
     MateriasComponent,
     MisMateriasComponent,
+    MateriaComponent,
+    MisProgramasComponent,
+    CuestionarioComponent,
   ],
   imports: [
     PagesRoutingModule,
@@ -89,7 +98,10 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     DataViewModule,
     OrderListModule,
     PickListModule,
-    InputSwitchModule
+    InputSwitchModule,
+    DividerModule,
+    CheckboxModule,
+    AccordionModule
   ]
 })
 export class PagesModule { }

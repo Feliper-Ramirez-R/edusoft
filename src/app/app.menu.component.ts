@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
     selector: 'app-menu',
@@ -8,48 +9,61 @@ import { AppMainComponent } from './app.main.component';
 export class AppMenuComponent implements OnInit {
 
     model: any[] | undefined;
-
-    constructor(public appMain: AppMainComponent) {}
+    a: boolean = false
+    constructor(public appMain: AppMainComponent,
+                private user:AuthService) { }
 
     ngOnInit() {
+      if(this.user.user.role_name == 'ADMIN')
+      {
         this.model = [
-            {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home']},
+            { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
             {
                 label: 'Administrador', icon: 'pi pi-fw pi-desktop', routerLink: ['/usuarios'],
                 items: [
-                    {label: 'Usuarios', icon: 'pi pi-fw pi-users', routerLink: ['/pages/usuarios']},
-                    {label: 'Grupos', icon: 'pi pi-fw pi-sitemap', routerLink: ['/pages/grupos']},
-                    {label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/materias']},
-                   
+                    { label: 'Usuarios', icon: 'pi pi-fw pi-users', routerLink: ['/pages/usuarios'] },
+                    { label: 'Grupos', icon: 'pi pi-fw pi-sitemap', routerLink: ['/pages/grupos'] },
+                    { label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/materias'] },
+
                 ]
             },
             {
                 label: 'Profesores', icon: 'pi pi-fw pi-user-plus', routerLink: ['/profesores'],
                 items: [
-                    {label: 'Mis materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-materias']}, 
-                ]
-            },
-           /*  {
-                label:'menú', icon:'pi pi-fw pi-prime', routerLink: ['/blocks'],
-                items:[
-                    {label: 'Pao aun no funciono', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks']},
-                    {label: 'Pao aun no funciono', icon: 'pi pi-fw pi-globe', url: ['https://www.primefaces.org/primeblocks-ng'], target: '_blank'},
+                    { label: 'Mis materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-materias'] },
                 ]
             },
             {
-                label: 'menú', icon: 'pi pi-fw pi-copy', routerLink: ['/pages'],
+                label: 'Alumnos', icon: 'pi pi-fw pi-user-plus', routerLink: ['/alumnos'],
                 items: [
-                    {label: 'Pao aun no funciono', icon: 'pi pi-fw pi-pencil', routerLink: ['/pages/crud']},
-                    {label: 'Pao aun no funciono', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/pages/calendar']},
+                    { label: 'Mis programas', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-programas'] },
                 ]
             },
-            {
-                label: 'Pao aun no funciono', icon: 'pi pi-fw pi-file', routerLink: ['/documentation']
-            },
-            {
-                label: 'Pao aun no funciono', icon: 'pi pi-fw pi-money-bill', url: ['https://www.primefaces.org/store']
-            } */
         ];
+      }else if(this.user.user.role_name == 'DOCENTE')
+      {
+        this.model = [
+            { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
+            {
+                label: 'Profesores', icon: 'pi pi-fw pi-user-plus', routerLink: ['/profesores'],
+                items: [
+                    { label: 'Mis materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-materias'] },
+                ]
+            },
+        ];
+      }else if(this.user.user.role_name == 'ALUMNO')
+      {
+        this.model = [
+            { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
+            {
+                label: 'Alumnos', icon: 'pi pi-fw pi-user-plus', routerLink: ['/alumnos'],
+                items: [
+                    { label: 'Mis programas', icon: 'pi pi-fw pi-book', routerLink: ['/pages/mis-programas'] },
+                ]
+            },
+        ];
+      }
+
     }
 
     onMenuClick() {

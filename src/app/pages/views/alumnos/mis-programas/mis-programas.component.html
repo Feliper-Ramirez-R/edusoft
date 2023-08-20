@@ -1,0 +1,31 @@
+<div class="card">
+    <h5>Mis programas</h5>
+    <p-panel *ngFor="let programa of programas" header="{{programa.program_name}}" [collapsed]="true" [toggleable]="true" class="line-height-3 m-0" styleClass="mb-1">
+
+        <div class="col-12">
+            <div class="card widget-download-files">
+                <div class="card-header">
+                    <div class="title">
+                        <h5>Materias</h5>
+                    </div>
+                   <!--  <div class="files-info">
+                        <span>Download All</span>
+                    </div> -->
+                </div>
+                <ul>
+                    <li *ngFor="let materia of programa.maters" >
+                        <div [routerLink]="['/pages/materia',materia.id]" class="grid list-item">
+                            <div class="col-2 icon">
+                                <img src="assets/layout/images/dashboard/icon-primefaces.svg" alt="mirage-layout" />
+                            </div>
+                            <div class="col-10 file-name">
+                                <h6 class="name">{{materia.name}}</h6>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="list-effect"></div>
+            </div>
+        </div>
+    </p-panel>
+</div>

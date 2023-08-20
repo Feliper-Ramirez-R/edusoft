@@ -80,7 +80,7 @@ export class MisMateriasService {
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.post(rutas.ruta + this.prefix+'/',dataPost,{ headers }).subscribe({
+      this.http.post(rutas.ruta + this.prefix+'/addQuestionary',dataPost,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -133,8 +133,68 @@ export class MisMateriasService {
   }
 
 
+  async editarCuestionario(dataPost:any,id:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.patch(rutas.ruta + this.prefix+'/updateQuestionary/'+id,dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
 
   async crearLibre(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/addFreeQuestionary',dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
+  async editarLibre(dataPost:any,id:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.patch(rutas.ruta + this.prefix+'/updateFreeQuestionary/'+id,dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
+  async adicionarPregunta(dataPost:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
@@ -152,4 +212,46 @@ export class MisMateriasService {
       });
     });
   }
+
+
+  async editarPregunta(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/',dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
+  async deletePregunta(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/',dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
 }
