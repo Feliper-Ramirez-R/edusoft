@@ -45,12 +45,9 @@ export class MateriaComponent {
   
 
   openMostrarCuestionario(actividad: any) {
-    console.log(actividad);
-    
+     
     this.router.navigate(['/pages/cuestionario',actividad.id])
    
-   
-    // this.MostrarCuestionario = actividad.questions
   }
 
 

@@ -1,57 +1,130 @@
 
-<div class="col-12">
+
+
+<div *ngIf="iniciarIntento; else informacion" class="col-12">
     <div class="card widget-support-request">
         <div class="grid grid-nogutter">
             <div class="col-6 title">
                 <h5>Preguntas</h5>
             </div>
             <div class="col-6 support-info">
-                <p>⏰ Estimado alumno te quedan</p>
-                <span class="highlighted">21 minutes</span>
+                <p>⏰ Estimado alumno, tiempo restante</p>
+                <span class="highlighted text-2xl">{{ minutos }} Minutos {{ segundos }}</span>
             </div>
         </div>
 
-        <div *ngFor="let pregunta of cuestionario; let i = index" >
+        <div *ngFor="let pregunta of cuestionario; let i = index">
             <div class="card border-1 surface-border m-3">
 
                 <div class="text-500 mb-3">pregunta # {{i+1}}</div>
 
                 <span class="text-xl"> {{pregunta.question}}</span>
 
-               <div *ngIf="pregunta.option_a && pregunta.option_b && pregunta.option_c && pregunta.option_d; else libre">
+                <div
+                    *ngIf="pregunta.option_a && pregunta.option_b && pregunta.option_c && pregunta.option_d; else libre">
 
-                <div class="field-checkbox mt-5 ">
-                    <p-radioButton [(ngModel)]="pregunta.answers"  value="a"></p-radioButton>
-                    <label>{{pregunta.option_a}}</label>
+                    <div class="field-checkbox mt-5 ">
+                        <p-radioButton [(ngModel)]="pregunta.answers" value="a"></p-radioButton>
+                        <label>{{pregunta.option_a}}</label>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answers" value="b"></p-radioButton>
+                        <label>{{pregunta.option_b}}</label>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answers" value="c"></p-radioButton>
+                        <label>{{pregunta.option_c}}</label>
+                    </div>
+
+                    <div class="field-checkbox ">
+                        <p-radioButton [(ngModel)]="pregunta.answers" value="d"></p-radioButton>
+                        <label>{{pregunta.option_d}}</label>
+                    </div>
                 </div>
 
-                <div class="field-checkbox ">
-                    <p-radioButton  [(ngModel)]="pregunta.answers" value="b" ></p-radioButton>
-                    <label >{{pregunta.option_b}}</label>
-                </div>
-
-                <div class="field-checkbox ">
-                    <p-radioButton [(ngModel)]="pregunta.answers"  value="c" ></p-radioButton>
-                    <label >{{pregunta.option_c}}</label>
-                </div>
-
-                <div class="field-checkbox ">
-                    <p-radioButton  [(ngModel)]="pregunta.answers" value="d" ></p-radioButton>
-                    <label >{{pregunta.option_d}}</label>
-                </div>
-               </div>
-
-               <ng-template #libre>
-                <!-- <label for="resolution-message">Escribe tu respuesta</label> -->
-                <textarea type="text" pInputTextarea [(ngModel)]="pregunta.answers" [rows]="8" placeholder="Escribe tu respuesta..." class="mt-3" [autoResize]="false" ></textarea>
-               </ng-template>
+                <ng-template #libre>
+                    <textarea type="text" pInputTextarea [(ngModel)]="pregunta.answers" [rows]="8"
+                        placeholder="Escribe tu respuesta..." class="mt-3" [autoResize]="false"></textarea>
+                </ng-template>
 
             </div>
         </div>
 
         <div class="resolution-button-bar">
-            <button type="button" label="Enviar Respuesta" icon="pi pi-star" pButton (click)="enviar()"></button>
+            <button type="button" label="Enviar Respuesta" icon="pi pi-star" pButton (click)="enviarCuestionario()"></button>
             <!-- <button type="button" label="Save as Draft" pButton class="p-button-secondary p-button-text"></button> -->
         </div>
     </div>
 </div>
+
+<ng-template #informacion>
+
+    <div class="col-12">
+        <div class="card widget-support-request">
+            <div class="grid grid-nogutter">
+                <div class="col-6 title">
+                    <h5>{{actividad.name |titlecase}}</h5>
+                </div>
+                <div class="col-6 support-info">
+                    <p> {{fecha}}</p>
+                </div>
+            </div>
+    
+            
+
+            <div class="col-12">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="card widget-timeline">
+                            <div class="timeline-row">
+                                <div class="grid grid-nogutter">
+                                    <div class="col-1">
+                                        <div class="timeline-icon comment-icon">
+                                            <i class="pi pi-comment"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="grid grid-nogutter">
+                                            <div class="col-9 timeline-content">
+                                                <h6>{{user.user.name}}</h6>
+                                                <span>
+                                                    El {{actividad.name | titlecase}} consta de <b>{{actividad.attempts}}</b> intentos y tiene un tiempo de 
+                                                   <b> {{actividad.duration}} minutos</b> despues de oprimir el botón Iniciar cuestionario
+                                                </span>
+                                            </div>
+                                            <div class="col-3 timeline-time">
+                                                <span>{{actividad.attempts}} intentos restantes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    
+            <div class="resolution-button-bar">
+                <button type="button" label="Iniciar cuestionario" icon="pi pi-star" pButton (click)="startCountdown()"></button>
+                <!-- <button type="button" label="Save as Draft" pButton class="p-button-secondary p-button-text"></button> -->
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+
+<p-dialog [(visible)]="tiempoDialog" header="Confirmar" [modal]="true" [style]="{width:'70wv'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Terminó el tiempo, las respuestas ya fueron enviadas exitosamente</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cerrar"
+            (click)="tiempoDialog = false"></button>
+    </ng-template>
+</p-dialog>

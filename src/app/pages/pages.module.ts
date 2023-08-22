@@ -52,6 +52,7 @@ import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario
 
 
 
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -101,7 +102,8 @@ import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario
     InputSwitchModule,
     DividerModule,
     CheckboxModule,
-    AccordionModule
+    AccordionModule,
+    
   ]
 })
 export class PagesModule { }
