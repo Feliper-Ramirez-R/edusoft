@@ -25,7 +25,7 @@ export class CuestionarioService {
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.get(rutas.ruta + this.prefix+'/getQuestions/'+id,{ headers }).subscribe({
+      this.http.get(rutas.ruta + this.prefix+'/getQuestions/'+id, { headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -37,14 +37,14 @@ export class CuestionarioService {
     });
   }
 
-  async enviarCuestionario() {
+  async enviarCuestionario(dataPost:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
-        Authorization: 'Bearer' + this.user.token,
+        Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.get(rutas.ruta + this.prefix+'/', { headers }).subscribe({
+      this.http.post(rutas.ruta + this.prefix+'/saveAnswers',dataPost, { headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -60,5 +60,31 @@ export class CuestionarioService {
       });
     });
   }
+
+
+  async consumirIntento(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/saveAttempt', dataPost, { headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          if (error.status == 401) {
+            this.messageService.add({ severity: 'info', summary: 'Ups!', detail: 'Su sesión expiró, inicie de nuevo', life: 5000 });
+            this.router.navigate(['/auth/login']);
+             console.log(error);
+            return
+          }
+          resolve(error);
+        }
+      });
+    });
+  }
+
 
 }

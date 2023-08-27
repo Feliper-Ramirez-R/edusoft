@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { MisMateriasService } from './mis-materias.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-materias',
@@ -85,7 +86,8 @@ export class MisMateriasComponent {
 
   constructor(private mismateriasService: MisMateriasService,
     private messageService: MessageService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private router:Router) { }
 
 
   ngOnInit() {
@@ -127,6 +129,14 @@ export class MisMateriasComponent {
       { name: 'Semana 12', id: 12 },
     ];
   }
+
+
+  openRevisar(actividad: any) {
+    console.log(actividad);
+
+    this.router.navigate(['/pages/revisar',actividad.id])
+  }
+
 
   agregarPregunta() {
     console.log(this.pregunta);
@@ -283,28 +293,24 @@ export class MisMateriasComponent {
     console.log(valid)
 
     if (!valid.error) {
-/* ordenar las semanas */
-     valid.data.forEach((element:any) => {
-      element.weeks.sort(function (a: any, b: any) {
-        if (a.week < b.week) {
-          return 1;
-        }
-        if (a.week > b.week) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
 
-     });
-
-
-
-
+    
       this.materias = valid.data;
       this.grupos = valid.groups;
 
       if (valid.status == 200) {
+        /* ordenar las semanas */
+        valid.data.forEach((element:any) => {
+          element.weeks.sort(function (a: any, b: any) {
+            if (a.week < b.week) {
+              return 1;
+            }
+            if (a.week > b.week) {
+              return -1;
+            }
+            return 0;
+          });
+         });
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {

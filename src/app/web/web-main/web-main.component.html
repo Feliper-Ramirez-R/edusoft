@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-    <html>
-    
-    <head>
-        <script>document.write('<base href="' + document.location + '" />');</script>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <title>PrimeNG - Mirage - Landing Page</title>
-    
-        <!-- <link rel="stylesheet" type="text/css" href="../theme/blue/theme-light.css">
+<html>
+
+<head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>PrimeNG - Mirage - Landing Page</title>
+
+    <!-- <link rel="stylesheet" type="text/css" href="../theme/blue/theme-light.css">
         <link rel="stylesheet" type="text/css" href="../layout/css/blue/layout-light.css"> -->
-       <!--  <link rel="stylesheet" type="text/css" href="../primeng.min.css"> -->
-        <!-- <link rel="stylesheet" type="text/css" href="primeflex.css"> -->
-    
-    </head>
-    
-    <body class="landing-body">
+    <!--  <link rel="stylesheet" type="text/css" href="../primeng.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="primeflex.css"> -->
+
+</head>
+
+<body class="landing-body">
+    <div *ngIf="iglesia; else instituto">
         <div class="landing-nav-menu">
             <div class="logo">
                 <a href="#">
-                    <img src="../../../assets/layout/images/logo-mirage@2x.png" alt="mirage-layout"/>
-                    <span class="app-name">Mirage</span>
+                    <img src="../../../assets/images/logo_iglesia.png" alt="mirage-layout" />
+                    <span class="app-name">D.A.I.J</span>
                 </a>
             </div>
             <div class="nav-menu-wrapper">
@@ -30,22 +31,22 @@
                         <a href="#home">Home</a>
                     </li>
                     <li>
-                        <a href="#meet-mirage">Meet Mirage</a>
+                        <a href="#meet-mirage">Nosotros</a>
                     </li>
                     <li>
-                        <a href="#features">Features</a>
+                        <a href="#features">Horarios</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#pricing">Pricing</a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!--  <li>
                         <a href="#multimedia">Videos</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
-            <div class="buy-button">
-                <button (click)="inicio()" type="button" class="p-button">
-                    Ingresar
+            <div class="">
+                <button (click)="cambiarPagina()" type="button" class="p-button">
+                    Instituto
                 </button>
             </div>
             <div class="menu-button">
@@ -55,78 +56,84 @@
             </div>
         </div>
         <div id="home" class="landing-header-wrapper">
-            <div class="sun">
-                <img src="../../../assets/layout/images/pages/landing/asset-sun.svg" alt="mirage-layout"/>
+            <div class="w-100">
+                <img style="width: 100%;" src="../../../assets/images/web1.jpeg" alt="mirage-layout" />
             </div>
             <div class="landing-header-content">
-                <h1>PrimeTek Proudly Presents</h1>
-                <p>The most Powerful Bootstrap Admin Template Ever Made</p>
+                <h1 style="color: white;">Iglesia cristiana</h1>
+                <p style="color: white;">El Dios de Abraham, de Isaac y de Jacob</p>
                 <div class="video-button">
-                    <button>Watch Video</button>
+                    <!-- <button>Watch Video</button> -->
                 </div>
             </div>
             <div class="tree">
-                <img src="../../../assets/layout/images/pages/landing/asset-palm.svg" alt="mirage-layout"/>
+                <img src="../../../assets/layout/images/pages/landing/asset-palm.svg" alt="mirage-layout" />
             </div>
         </div>
         <div id="meet-mirage" class="section">
             <div class="section-title">
-                <h1>Meet Mirage</h1>
-                <p>Full Customizable Template</p>
+                <h1>Nosotros</h1>
+                <p>Conócenos un poco</p>
             </div>
             <div class="feature-cards">
                 <div class="feature-card">
                     <div class="feature-card-img">
-                        <img src="../../../assets/layout/images/pages/landing/asset-responsivelayout.svg" alt="mirage-layout"/>
+                        <img src="../../../assets/layout/images/pages/landing/asset-moderndesign.svg"
+                            alt="mirage-layout" />
                     </div>
-                    <div class="feature-card-title">Responsive Layout</div>
-                    <div class="feature-card-content">Feature subtitle sentence. Lorem ipsum dolor sit amet.</div>
+                    <div class="feature-card-title">Nuestra misión</div>
+                    <div class="feature-card-content">Nuestra misión es dar a conocer el evangelio de salvación a través
+                        de la palabra del Señor Jesucristo.</div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-card-img">
-                        <img src="../../../assets/layout/images/pages/landing/asset-moderndesign.svg" alt="mirage-layout"/>
+                        <img src="../../../assets/layout/images/pages/landing/asset-responsivelayout.svg"
+                            alt="mirage-layout" />
                     </div>
-                    <div class="feature-card-title">Modern Design</div>
-                    <div class="feature-card-content">Feature subtitle sentence. Lorem ipsum dolor sit amet.</div>
+                    <div class="feature-card-title">Donde quieras</div>
+                    <div class="feature-card-content">En enseñanzas, escritos bíblicos y en todos los medios que Dios
+                        nos permita.</div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-card-img">
-                        <img src="../../../assets/layout/images/pages/landing/asset-welldocumented.svg" alt="mirage-layout"/>
+                        <img src="../../../assets/layout/images/pages/landing/asset-welldocumented.svg"
+                            alt="mirage-layout" />
                     </div>
-                    <div class="feature-card-title">Well Documented</div>
-                    <div class="feature-card-content">Feature subtitle sentence. Lorem ipsum dolor sit amet.</div>
+                    <div class="feature-card-title">enseñanzas</div>
+                    <div class="feature-card-content">A demás de querer lograr por medio de las enseñanzas, las personas
+                        puedan tener una visión clara y correcta del evangelio.</div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-card-img">
-                        <img src="../../../assets/layout/images/pages/landing/asset-unlimited.svg" alt="mirage-layout"/>
+                        <img src="../../../assets/layout/images/pages/landing/asset-unlimited.svg"
+                            alt="mirage-layout" />
                     </div>
-                    <div class="feature-card-title">Unlimited Possibilities</div>
-                    <div class="feature-card-content">Feature subtitle sentence. Lorem ipsum dolor sit amet.</div>
+                    <div class="feature-card-title">Responder preguntas</div>
+                    <div class="feature-card-content">Ya que podremos responder a preguntas que tengan acerca de la
+                        deidad de Dios para que muchos sean sanos en doctrina.</div>
                 </div>
             </div>
-    
+
             <div class="buy-mirage-promo-wrapper">
                 <div class="buy-mirage-promo">
                     <div class="promo-content">
-                        <h1>Join the people of Mirage now…</h1>
-                        <p>We know your time is precious. That’s why we create premium application templates to save time
-                            for
-                            another important things.</p>
+                        <h1>Horarios</h1>
+                        <p>Conoce nuestros horarios.</p>
                     </div>
-                    <div class="promo-button">
+                    <!-- <div class="promo-button">
                         <button>Buy Mirage Now</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
-    
+
         <div id="features" class="section">
             <div class="features-img">
-                <img src="../../../assets/layout/images/pages/landing/feature-image-2@2x.png" alt="mirage-layout"/>
+                <img src="../../../assets/images/logo_iglesia.png" alt="mirage-layout" />
             </div>
             <div class="features-content">
                 <div class="features-rows">
-                    <div class="features-row">
+                    <!--  <div class="features-row">
                         <div class="features-row-icon">
                            <div class="feature first"></div>
                         </div>
@@ -144,23 +151,50 @@
                             <h3>EXECUTIVE INFLUENCER OUTREACH</h3>
                             <span>Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum. Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia!</span>
                         </div>
+                    </div> -->
+                    <div class="features-row">
+                        <div class="features-row-icon">
+                            <div class="feature third"></div>
+                        </div>
+                        <div class="features-row-content">
+                            <h3>Miércoles</h3>
+                            <span><i class="pi pi-clock mr-2"></i>7:00 pm.</span>
+                        </div>
                     </div>
                     <div class="features-row">
                         <div class="features-row-icon">
                             <div class="feature third"></div>
                         </div>
                         <div class="features-row-content">
-                            <h3>DEVELOP SELLING TRAINING</h3>
-                            <span>Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia! Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum.</span>
+                            <h3>Jueves</h3>
+                            <span><i class="pi pi-clock mr-2"></i>7:00 pm.</span>
+                        </div>
+                    </div>
+                    <div class="features-row">
+                        <div class="features-row-icon">
+                            <div class="feature third"></div>
+                        </div>
+                        <div class="features-row-content">
+                            <h3>Sábado</h3>
+                            <span><i class="pi pi-clock mr-2"></i>7:00 pm.</span>
+                        </div>
+                    </div>
+                    <div class="features-row">
+                        <div class="features-row-icon">
+                            <div class="feature third"></div>
+                        </div>
+                        <div class="features-row-content">
+                            <h3>Domingo</h3>
+                            <span><i class="pi pi-clock mr-2"></i>8:00 am.</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="effect">
-                <img src="../../../assets/layout/images/pages/landing/effect-bottom-1.svg" alt="mirage-layout"/>
+                <img src="../../../assets/layout/images/pages/landing/effect-bottom-1.svg" alt="mirage-layout" />
             </div>
         </div>
-        <div id="pricing" class="section">
+        <!--  <div id="pricing" class="section">
             <div class="section-title">
                 <h1>Pricing</h1>
                 <p>Affordable Prices, Highest Quality</p>
@@ -224,26 +258,34 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="multimedia" class="section">
+        </div> -->
+        <!--  <div id="multimedia" class="section">
             <div class="section-title">
-                <h1>Multimedia</h1>
-                <p>Duis nec lobortis massa, sed facilisis lorem. In hac habitasse platea dictumst.</p>
+                <h1>Las vestiduras sacerdotales</h1>
+                <p>Vestiduras de santidad para gloria y esplendor: En este fragmento de las escrituras detallaremos la
+                    vestimenta diseñada por Dios para los sacerdotes y su importancia y significado espiritual para la
+                    iglesia. La vestidura investida de santidad al Sacerdote, lo diferenciaba del resto de la poblaciòn
+                    y su diseño era algo creado para la gloria de Dios. 1. Calzones de lino fino (Ex. 28: 42 - 43) 2.
+                    Túnica de lino (Ex. 28: 39 - 41) 3. Manto Azul (Ex. 28: 3 - 6) 4. Cinto (Ex. 28: 39) 5. El pectoral
+                    (Ex. 28: 15 - 21 y 29) 6. Piedras de ónice (Ex. 28: 9 - 14) 7. Urim y Tumim (Ex. 28: 29 - 30) 8.
+                    Campanas y Granadas (Ex. 28: 31 - 35) 9. Mitra o Gorro (Ex. 28: 37 - 38) 10. Lamina dorada ( Ex. 28:
+                    36) En otra sección daré una explicaciòn de cada prenda de estas, pero concluyendo estas vestiduras
+                    hacían tener una diferencia entre todo el pueblo y el sumo sacerdote.</p>
             </div>
             <div class="multimedia-video-wrapper">
-                <iframe src="https://www.youtube.com/embed/B_lYGUtCd0g" frameborder="0" allowfullscreen="true"></iframe>
+                <iframe src="https://www.youtube.com/embed/5uS8Se6gMzw" frameborder="0" allowfullscreen="true"></iframe>
             </div>
             <div class="effect">
-                <img src="../../../assets/layout/images/pages/landing/effect-bottom.svg" alt="mirage-layout"/>
+                <img src="../../../assets/layout/images/pages/landing/effect-bottom.svg" alt="mirage-layout" />
             </div>
-        </div>
-    
+        </div> -->
+
         <div class="footer">
             <div class="logo-text">
-                <img src="../../../assets/layout/images/logo-mirage@2x.png" alt="mirage-layout"/>
+                <img src="../../../assets/images/logo_iglesia.png" alt="mirage-layout" />
                 <div class="text">
-                    <h1>Mirage</h1>
-                    <span>Premium Application Template</span>
+                    <h1>D.A.I.J</h1>
+                    <span>Iglesia cristiana</span>
                 </div>
             </div>
             <div class="icons">
@@ -265,68 +307,362 @@
             </div>
             <div class="landing-mask" id="landing-mask"></div>
         </div>
-    
-    <script>
-        MirageLanding = {
-            addClass: function (element, className) {
-                if (element.classList)
-                    element.classList.add(className);
-                else
-                    element.className += ' ' + className;
-            },
-    
-            removeClass: function (element, className) {
-                if (element.classList)
-                    element.classList.remove(className);
-                else
-                    element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            },
-    
-            hasClass: function (element, className) {
-                if (element.classList)
-                    return element.classList.contains(className);
-                else
-                    return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
-            },
-    
-            hideMenu: function () {
-                this.removeClass(document.getElementById('landing-menu'), 'landing-menu-active');
-                this.removeClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
-                this.removeClass(document.getElementById('landing-mask'), 'landing-menu-active');
-            },
-    
-            showMenu: function () {
-                this.addClass(document.getElementById('landing-menu'), 'landing-menu-active');
-                this.addClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
-                this.addClass(document.getElementById('landing-mask'), 'landing-menu-active');
-            }
-        };
-    
-        document.getElementById('landing-menu-button').addEventListener('click', function (e) {
-            var menu = document.getElementById('landing-menu');
-    
-            if (MirageLanding.hasClass(menu, 'landing-menu-active')) {
-                MirageLanding.hideMenu();
-            } else {
-                MirageLanding.showMenu();
-            }
-    
-            e.preventDefault();
-        });
-    
-        document.getElementById('landing-mask').addEventListener('click', function (e) {
-            MirageLanding.hideMenu();
-    
-            e.preventDefault();
-        });
-    
-        var menuLinks = document.querySelectorAll('#landing-menu a');
-        for (i = 0; i < menuLinks.length; i++) {
-            menuLinks[i].addEventListener('click', function (e) {
-                MirageLanding.hideMenu();
+
+        <script>
+            MirageLanding = {
+                addClass: function (element, className) {
+                    if (element.classList)
+                        element.classList.add(className);
+                    else
+                        element.className += ' ' + className;
+                },
+
+                removeClass: function (element, className) {
+                    if (element.classList)
+                        element.classList.remove(className);
+                    else
+                        element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+                },
+
+                hasClass: function (element, className) {
+                    if (element.classList)
+                        return element.classList.contains(className);
+                    else
+                        return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+                },
+
+                hideMenu: function () {
+                    this.removeClass(document.getElementById('landing-menu'), 'landing-menu-active');
+                    this.removeClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
+                    this.removeClass(document.getElementById('landing-mask'), 'landing-menu-active');
+                },
+
+                showMenu: function () {
+                    this.addClass(document.getElementById('landing-menu'), 'landing-menu-active');
+                    this.addClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
+                    this.addClass(document.getElementById('landing-mask'), 'landing-menu-active');
+                }
+            };
+
+            document.getElementById('landing-menu-button').addEventListener('click', function (e) {
+                var menu = document.getElementById('landing-menu');
+
+                if (MirageLanding.hasClass(menu, 'landing-menu-active')) {
+                    MirageLanding.hideMenu();
+                } else {
+                    MirageLanding.showMenu();
+                }
+
+                e.preventDefault();
             });
-        }
-    </script>
-    </body>
-    </html>
-    
+
+            document.getElementById('landing-mask').addEventListener('click', function (e) {
+                MirageLanding.hideMenu();
+
+                e.preventDefault();
+            });
+
+            var menuLinks = document.querySelectorAll('#landing-menu a');
+            for (i = 0; i < menuLinks.length; i++) {
+                menuLinks[i].addEventListener('click', function (e) {
+                    MirageLanding.hideMenu();
+                });
+            }
+        </script>
+    </div>
+    <ng-template #instituto>
+
+        <div class="landing-nav-menu">
+            <div class="logo">
+                <a href="#">
+                    <img src="../../../assets/images/edu.png" alt="mirage-layout" />
+                    <span class="app-name">D.A.I.J</span>
+                </a>
+            </div>
+            <!--  <div class="nav-menu-wrapper">
+                <ul class="nav-menu" id="landing-menu">
+                    <li class="active-link">
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#meet-mirage">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#features">Horarios</a>
+                    </li>
+                    <li>
+                        <a href="#pricing">Pricing</a>
+                    </li>
+                    <li>
+                        <a href="#multimedia">Videos</a>
+                    </li>
+                </ul>
+            </div> -->
+            <div>
+                <button (click)="cambiarPagina()" type="button" class="p-button">
+                    Inicio
+                </button>
+            </div>
+            <div class="buy-button">
+                <button (click)="inicio()" type="button" class="p-button">
+                    Ingresar
+                </button>
+            </div>
+            <div class="menu-button">
+                <a href="#" class="landing-menu-button" id="landing-menu-button">
+                    <div class="landing-menu-button-icon"></div>
+                </a>
+            </div>
+        </div>
+        <div id="home" class="landing-header-wrapper">
+            <div class="w-100">
+                <img style="width: 100%;" src="../../../assets/images/web3.jpg" alt="mirage-layout" />
+            </div>
+            <div class="landing-header-content">
+                <div class="features-img">
+                    <img width="300" src="../../../assets/images/edu.png" alt="mirage-layout" />
+                </div>
+                <!--  <h1 style="color: black;">Instituto bíblico</h1>
+                <p style="color: black;">Dios de Abraham, de Isaac y de Jacob</p> -->
+                <div class="video-button">
+                    <!-- <button>Watch Video</button> -->
+                </div>
+            </div>
+            <!-- <div class="tree">
+                <img src="../../../assets/layout/images/pages/landing/asset-palm.svg" alt="mirage-layout" />
+            </div> -->
+        </div>
+
+        <div id="meet-mirage" class="section p-0 ">
+            <div class="section-title">
+                <h1 class="mt-8">Instituto bíblico</h1>
+                <p>Dios de Abraham, de Isaac y de Jacob</p>
+            </div>
+
+            <div class="col-12">
+                <div class="">
+                    <div class="col-12">
+                        <div class=" widget-timeline">
+
+                            <div class="timeline-row">
+                                <div class="grid grid-nogutter">
+                                    <div class="col-1">
+                                        <div class="timeline-icon comment-icon">
+                                            <i class="pi pi-chart-line"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="grid grid-nogutter">
+                                            <div class="col-12 timeline-content">
+                                                <h6>Misión</h6>
+                                                <span>El instituto Bíblico Eclesiástico (Dios de Abraham, de Isaac y de
+                                                    Jacob)”DAIJ”. Su principal Misión, es formar un liderazgo con
+                                                    propósitos misionero y de servir al señor dentro y fuera de la
+                                                    iglesia local, para la extensión del evangelio del reino de Dios en
+                                                    todo el mundo, empezando desde lo local, luego lo regional, lo
+                                                    departamental, nacional e internacional.</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <div class="grid grid-nogutter">
+                                    <div class="col-1">
+                                        <div class="timeline-icon chart-icon">
+                                            <i class="pi pi-eye"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="grid grid-nogutter">
+                                            <div class="col-12 timeline-content">
+                                                <h6>Visión</h6>
+                                                <span>El instituto Bíblico Eclesiástico (Dios de Abraham, de Isaac y de
+                                                    Jacob)”DAIJ”. Tiene como visión, cumplir con los preceptos de
+                                                    Educación cristiana dentro del proceso formativo con un enfoque
+                                                    pedagógico, constructivista en el marco, de preparación, de
+                                                    formación, de capacitación, de equipamiento, y empoderamiento de
+                                                    líderes que promuevan el ensanchamiento del evangelio en harás de
+                                                    dar cumplimiento a la gran comisión.</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <div class="grid grid-nogutter">
+                                    <div class="col-1">
+                                        <div class="timeline-icon comment-icon">
+                                            <i class="pi pi-chart-bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="grid grid-nogutter">
+                                            <div class="col-12 timeline-content">
+                                                <h6>Objetivos</h6>
+                                                <span>General</span><br><br>
+                                                <span>El instituto Bíblico Eclesiástico (Dios de Abraham, de Isaac y de
+                                                    Jacob)”DAIJ”. Fomenta espacios de capacitación y formación continua
+                                                    en los estudiantes propiciando los recursos pedagógicos en el
+                                                    conocimiento de la Sagrada Biblia, en Teología, la practica
+                                                    ministerial y de servicio a la comunidad.</span><br><br><br>
+                                                <span>Específicos</span><br>
+                                                <ul>
+                                                    <li>Formar líderes, competentes y que estén aptos para toda buena
+                                                        obra.</li>
+                                                    <li>Proporcionar una sólida formación en el liderazgo con
+                                                        fundamentos Bíblicos y la Guía del Espíritu Santo.</li>
+                                                    <li>Fomentar en el proceso de aprendizaje los principios y valores
+                                                        cristianos en armonía con interpretación de las normas legales y
+                                                        dentro del ordenamiento jurídico.</li>
+                                                    <li>Equipar a los estudiantes en el que puedan asumir el llamado con
+                                                        responsabilidad en el servicio al Señor de la mies.</li>
+                                                    <li>Que los estudiantes, salgan con una conciencia de sana crítica y
+                                                        solidaria reflejando un espíritu conciliador.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="pricing" class="section">
+            <div class="section-title">
+                <h1>Equipo</h1>
+                <p>Nuestros profesores</p>
+            </div>
+            <div class="pricing-cards">
+
+                <div class="pricing-card free">
+                    <div class="pricing-card-title">
+                        <h2>Wilfredo Blandón</h2>
+                        <p>Profesor</p>
+                    </div>
+                    <img width="200" src="../../../assets/images/foto2.jpg" alt="">
+                </div>
+
+                <div class="pricing-card premium">
+                    <div class="pricing-card-title">
+                        <h2>Janer Dario Machado</h2>
+                        <p>Profesor</p>
+                    </div>
+                    <img width="200" src="../../../assets/images/foto1.jpg" alt="">
+                    
+                    <!-- <div class="pricing-license-button">
+                        <button>BUY PREMIUM</button>
+                    </div> -->
+                </div>
+                <div class="pricing-card enterprise">
+                    <div class="pricing-card-title">
+                        <h2>Daniel Pérez</h2>
+                        <p>Profesor</p>
+                    </div>
+                    <img width="200" src="../../../assets/images/foto3.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="footer">
+            <div class="logo-text">
+                <img src="../../../assets/images/edu.png" alt="mirage-layout" />
+                <div class="text">
+                    <h1>D.A.I.J</h1>
+                    <span>Instituto</span>
+                </div>
+            </div>
+            <div class="icons">
+                <div class="icon icon-hastag">
+                    <a href="#">
+                        <img src="../../../assets/layout/images/landing/icon-twitter.png" width="18">
+                    </a>
+                </div>
+                <div class="icon icon-twitter">
+                    <a href="#">
+                        <img src="../../../assets/layout/images/landing/icon-facebook.png" width="18" height="18">
+                    </a>
+                </div>
+                <div class="icon icon-prime">
+                    <a href="#">
+                        <img src="../../../assets/layout/images/landing/icon-github.png" width="18">
+                    </a>
+                </div>
+            </div>
+            <div class="landing-mask" id="landing-mask"></div>
+        </div>
+
+        <script>
+            MirageLanding = {
+                addClass: function (element, className) {
+                    if (element.classList)
+                        element.classList.add(className);
+                    else
+                        element.className += ' ' + className;
+                },
+
+                removeClass: function (element, className) {
+                    if (element.classList)
+                        element.classList.remove(className);
+                    else
+                        element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+                },
+
+                hasClass: function (element, className) {
+                    if (element.classList)
+                        return element.classList.contains(className);
+                    else
+                        return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+                },
+
+                hideMenu: function () {
+                    this.removeClass(document.getElementById('landing-menu'), 'landing-menu-active');
+                    this.removeClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
+                    this.removeClass(document.getElementById('landing-mask'), 'landing-menu-active');
+                },
+
+                showMenu: function () {
+                    this.addClass(document.getElementById('landing-menu'), 'landing-menu-active');
+                    this.addClass(document.getElementById('landing-menu-button'), 'landing-menu-active');
+                    this.addClass(document.getElementById('landing-mask'), 'landing-menu-active');
+                }
+            };
+
+            document.getElementById('landing-menu-button').addEventListener('click', function (e) {
+                var menu = document.getElementById('landing-menu');
+
+                if (MirageLanding.hasClass(menu, 'landing-menu-active')) {
+                    MirageLanding.hideMenu();
+                } else {
+                    MirageLanding.showMenu();
+                }
+
+                e.preventDefault();
+            });
+
+            document.getElementById('landing-mask').addEventListener('click', function (e) {
+                MirageLanding.hideMenu();
+
+                e.preventDefault();
+            });
+
+            var menuLinks = document.querySelectorAll('#landing-menu a');
+            for (i = 0; i < menuLinks.length; i++) {
+                menuLinks[i].addEventListener('click', function (e) {
+                    MirageLanding.hideMenu();
+                });
+            }
+        </script>
+
+    </ng-template>
+</body>
+
+</html>

@@ -8,10 +8,16 @@ import { Router } from '@angular/router';
 })
 export class WebMainComponent {
 
+  iglesia:boolean = true;
+
   constructor(private router:Router){}
 
   inicio(){
     this.router.navigate(['/auth/login'])
+  }
+
+  cambiarPagina(){
+    this.iglesia = !this.iglesia
   }
 
 }

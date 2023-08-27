@@ -11,7 +11,7 @@
                     <img style="border-radius: 50%;" src="assets/images/edu.png" alt="mirage-layout" />
                 </div>
                <!--  <h2>Inicio de sesión Tracking express</h2> -->
-                <p>Bienvenido, inicia sesión para ver mas</p>
+                <p>Bienvenido, regístrate para ver mas</p>
                 <form [formGroup]="form" class="forms">
                     <div class="login-input-wrapper">
                         <label for="username">Email</label>
@@ -23,8 +23,19 @@
                     <div class="login-input-wrapper">
                         <label for="username">Nombre</label>
                         <input id="nombre" formControlName="nombre" pInputText placeholder="Escribe tu nombre..."
+                        [ngClass]="{'ng-invalid ng-dirty' : submitted &&  form.get('nombre')?.hasError('required') ||form.get('nombre')?.touched && form.get('nombre')?.hasError('minLength(10)')}"
                             [ngClass]="{'ng-invalid ng-dirty' : submitted &&  form.get('nombre')?.hasError('required') }" />
                         <i class="pi pi-user"></i>
+                        <small class="ng-dirty ng-invalid"
+                            *ngIf="form.get('nombre')?.dirty &&  nombre?.errors?.['minlength']">El nombre debe
+                            tener mínimo 10 caracteres.</small>
+                    </div>
+
+                    <div class="login-input-wrapper">
+                        <label for="username">Cédula</label>
+                        <input id="cedula" formControlName="cedula" pInputText placeholder="Escribe tu cédula..."
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted &&  form.get('cedula')?.hasError('required') }" />
+                        <i class="pi pi-id-card"></i>
                     </div>
 
 					<div class="login-input-wrapper">
@@ -36,11 +47,11 @@
                             [feedback]="false"></p-password>
                         <small class="ng-dirty ng-invalid"
                             *ngIf="form.get('password')?.dirty &&  password?.errors?.['minlength']">La contraseña debe
-                            tener minimo 6 caracteres.</small>
+                            tener mínimo 6 caracteres.</small>
                     </div>
 
                     <div class="login-input-wrapper">
-                        <label >confirmar contraseña</label><!--  [inputStyle]="form.get('password')?.value == ''?form.get('password2')?.disable():form.get('password2')?.enable()" -->
+                        <label >Confirmar contraseña</label><!--  [inputStyle]="form.get('password')?.value == ''?form.get('password2')?.disable():form.get('password2')?.enable()" -->
                         <p-password  placeholder="Confirma tu contraseña" formControlName="password2"
                             minlength="6" [toggleMask]="true"
                             styleClass="w-full"

@@ -64,14 +64,14 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px',height:'80%' }"
+        <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px' }"
             header="{{ crear ? 'Nuevo usuario' : 'Actualizar usuario' }}" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
                     <label for="name">Nombre</label>
                     <input type="text" pInputText id="name" [(ngModel)]="item.name" required autofocus
-                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.name }" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name">El item es requerido.</small>
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.name ||item.name && item.name.length <10 }" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name ||item.name && item.name.length <10 ">El nombre debe tener mínimo 10 caracteres.</small>
                 </div>
 
                 <div class="field">
@@ -92,15 +92,15 @@
                     <div class="field col">
                         <label for="">Perfil</label>
 
-                        <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="name"
+                        <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="role"appendTo="body"
                             placeholder="Seleccione" emptyMessage="No hay resultados"
                             [ngClass]="{ 'ng-invalid ng-dirty': submitted && !perfil.id }">
                             <ng-template pTemplate="selectedItem">
-                                <span *ngIf="perfil">{{ perfil.name }}</span>
+                                <span *ngIf="perfil">{{ perfil.role }}</span>
                             </ng-template>
 
                             <ng-template let-perfile pTemplate="item">
-                                <span>{{ perfile.name }}</span>
+                                <span>{{ perfile.role }}</span>
                             </ng-template>
                         </p-dropdown>
                         <small class="ng-dirty ng-invalid" *ngIf="submitted && !perfil.id">El campo es

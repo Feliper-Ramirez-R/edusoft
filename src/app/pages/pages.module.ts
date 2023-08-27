@@ -45,6 +45,7 @@ import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
 import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
+import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 
 
 
@@ -63,6 +64,7 @@ import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario
     MateriaComponent,
     MisProgramasComponent,
     CuestionarioComponent,
+    RevisarComponent,
   ],
   imports: [
     PagesRoutingModule,

@@ -6,21 +6,21 @@ import { rutas } from 'src/env/rutas'
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class RevisarService {
 
-  prefix: string = 'auth/register'
+  prefix:string = 'teacher'
 
   constructor(private user: AuthService, private http: HttpClient) { }
 
 
-  async register(dataPost: any) {
+  async getRevision(id:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.post(rutas.ruta + this.prefix, dataPost, { headers }).subscribe({
+      this.http.get(rutas.ruta + this.prefix+'/myRevisions/'+id,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
@@ -31,4 +31,5 @@ export class RegisterService {
       });
     });
   }
+
 }

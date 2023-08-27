@@ -24,28 +24,28 @@
                     *ngIf="pregunta.option_a && pregunta.option_b && pregunta.option_c && pregunta.option_d; else libre">
 
                     <div class="field-checkbox mt-5 ">
-                        <p-radioButton [(ngModel)]="pregunta.answers" value="a"></p-radioButton>
+                        <p-radioButton [(ngModel)]="pregunta.answer" value="a"></p-radioButton>
                         <label>{{pregunta.option_a}}</label>
                     </div>
 
                     <div class="field-checkbox ">
-                        <p-radioButton [(ngModel)]="pregunta.answers" value="b"></p-radioButton>
+                        <p-radioButton [(ngModel)]="pregunta.answer" value="b"></p-radioButton>
                         <label>{{pregunta.option_b}}</label>
                     </div>
 
                     <div class="field-checkbox ">
-                        <p-radioButton [(ngModel)]="pregunta.answers" value="c"></p-radioButton>
+                        <p-radioButton [(ngModel)]="pregunta.answer" value="c"></p-radioButton>
                         <label>{{pregunta.option_c}}</label>
                     </div>
 
                     <div class="field-checkbox ">
-                        <p-radioButton [(ngModel)]="pregunta.answers" value="d"></p-radioButton>
+                        <p-radioButton [(ngModel)]="pregunta.answer" value="d"></p-radioButton>
                         <label>{{pregunta.option_d}}</label>
                     </div>
                 </div>
 
                 <ng-template #libre>
-                    <textarea type="text" pInputTextarea [(ngModel)]="pregunta.answers" [rows]="8"
+                    <textarea type="text" pInputTextarea [(ngModel)]="pregunta.answer" [rows]="8"
                         placeholder="Escribe tu respuesta..." class="mt-3" [autoResize]="false"></textarea>
                 </ng-template>
 
@@ -95,7 +95,7 @@
                                                 </span>
                                             </div>
                                             <div class="col-3 timeline-time">
-                                                <span>{{actividad.attempts}} intentos restantes</span>
+                                                <span>{{actividad.attempts-intentos_restantes}} intentos restantes</span>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
 
     
             <div class="resolution-button-bar">
-                <button type="button" label="Iniciar cuestionario" icon="pi pi-star" pButton (click)="startCountdown()"></button>
+                <button type="button" label="Iniciar cuestionario" icon="pi pi-star" pButton (click)="consumirIntento()"></button>
                 <!-- <button type="button" label="Save as Draft" pButton class="p-button-secondary p-button-text"></button> -->
             </div>
         </div>
@@ -125,6 +125,18 @@
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cerrar"
-            (click)="tiempoDialog = false"></button>
+            (click)="redireccion()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="sinIntentosDialog" header="Información" [modal]="true" [style]="{width:'70wv'}">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Ya no tienes intentos disponibles.</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="Cerrar"
+            (click)="sinIntentosDialog=false"></button>
     </ng-template>
 </p-dialog>

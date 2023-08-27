@@ -13,12 +13,7 @@ export class UsuariosComponent {
   datosDB: any[] = [];
   item: any = {};
 
-  perfiles: any[] = [{ id: 2, name: 'ADMIN' },
-  //  {id:3,name:'Coordinador'}, 
-  { id: 4, name: 'DOCENTE' },
-  { id: 5, name: 'ALUMNO' },
-  { id: 6, name: 'VISITANTE' }
-  ];
+  perfiles: any[] = [];
   perfil: any = {};
 
 
@@ -48,7 +43,7 @@ export class UsuariosComponent {
     this.submitted = false;
   }
   openEdit(item: any) {
-    this.perfil = { id: item.role, name: item.role_name }
+    this.perfil = { id: item.role, role: item.role_name }
     this.crear = false
     this.item = { ...item };
     this.itemEditDialog = true;
@@ -128,9 +123,7 @@ export class UsuariosComponent {
     console.log(this.item, 'crear');
 
     this.submitted = true;
-    if (Object.values(this.item).length < 3 || !this.perfil.id) {
-      this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return
-    };
+    if (!this.item.name || this.item.name.length<10 || !this.item.dni || !this.item.email || !this.perfil.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
     let dataPost = {
 
       name: this.item.name,
@@ -162,7 +155,8 @@ export class UsuariosComponent {
     console.log(valid);
 
     if (!valid.error) {
-      this.datosDB = valid.data
+      this.datosDB = valid.data;
+      this.perfiles = valid.roles
       if (valid.status == 200) {
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }

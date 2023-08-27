@@ -65,7 +65,7 @@
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px',height:'80%' }"
+        <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px'}"
             header="{{ crear ? 'Nueva materia' : 'Actualizar grupo' }}" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
@@ -78,7 +78,7 @@
                  <div class="field">
                         <label for="">Profesores</label>
 
-                        <p-dropdown [options]="profesores" [(ngModel)]="profesor" optionLabel="name"
+                        <p-dropdown [options]="profesores" [(ngModel)]="profesor" optionLabel="name" appendTo="body"
                             placeholder="Seleccione" emptyMessage="No hay resultados">
                             <ng-template pTemplate="selectedItem">
                                 <span *ngIf="profesor">{{ profesor.name }}</span>

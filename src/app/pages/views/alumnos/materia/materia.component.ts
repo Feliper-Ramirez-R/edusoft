@@ -58,8 +58,12 @@ export class MateriaComponent {
     console.log(valid)
 
     if (!valid.error) {
+  
+      this.actividades = valid.weeks
+      this.totalActividades = valid.count
+      if (valid.status == 200) {
 
-/* ordenar las semanas */
+        /* ordenar las semanas */
         valid.weeks.sort(function (a: any, b: any) {
           if (a.week < b.week) {
             return 1;
@@ -70,10 +74,6 @@ export class MateriaComponent {
           // a must be equal to b
           return 0;
         });
-  
-      this.actividades = valid.weeks
-      this.totalActividades = valid.count
-      if (valid.status == 200) {
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {

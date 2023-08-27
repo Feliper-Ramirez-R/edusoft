@@ -1,0 +1,16 @@
+<div class="">
+    <div class="grid">
+        <div *ngFor="let pregunta of actividad; let i = index" class="col-12 lg:col-6 md:col-6">
+            <div class="card border-1 surface-border m-3">
+
+                <div class="text-500 mb-3">pregunta # {{i+1}}</div>
+
+                <span class="text-xl"> {{pregunta.question}}</span>
+
+                <div *ngFor="let respuesta of pregunta.answers;let i = index">
+                    <span class="text-xl"> <b>{{respuesta.name}}</b> inten.{{i+1}} respuesta <b>{{respuesta.answer}}</b> </span>
+                </div>
+                
+            </div>
+        </div>
+    </div>

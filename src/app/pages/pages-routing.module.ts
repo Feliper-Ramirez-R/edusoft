@@ -9,6 +9,7 @@ import { MisMateriasComponent } from './views/profesores/mis-materias/mis-materi
 import { MisProgramasComponent } from './views/alumnos/mis-programas/mis-programas.component';
 import { MateriaComponent } from './views/alumnos/materia/materia.component';
 import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
+import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 
 
 
@@ -56,6 +57,11 @@ const routes: Routes = [
         {
             path:'cuestionario/:id',
             component: CuestionarioComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'revisar/:id',
+            component: RevisarComponent,
             canActivate:[AuthGuard]
         }, 
 
