@@ -13,14 +13,13 @@
 </p-toolbar>
     
     <div class="grid">
-        <div *ngFor="let pregunta of actividad; let i = index" class="col-12 lg:col-6 md:col-6">
+        <div *ngFor="let archivo of archivos | revisarArchivos:filter; let i = index" class="col-12 lg:col-6 md:col-6">
             <div class="card border-1 surface-border m-3">
 
-                <div class="text-500 mb-3">pregunta # {{i+1}}</div>
+                <div class="text-500 mb-3">Archivo # {{i+1}}</div>
 
-                <h5>{{pregunta.question}}</h5>
-                <div *ngFor="let respuesta of pregunta.answers | revisar:filter; let i = index">
-
+                <h5>{{archivo.activity}}</h5>
+            
                     <div class="card widget-team">
                         <ul>
                             <li>
@@ -31,15 +30,20 @@
                                                 alt="mirage-layout" />
                                         </div>
                                         <div>
-                                            <h6 class="team-member">{{respuesta.name}}</h6>
-                                            <span class="team-member-role">{{respuesta.answer}}</span>
+                                            <h6 class="team-member">{{archivo.name}}</h6>
+                                          <span class="team-member-role">{{archivo.activity}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 icons">
+                                        <div class="icon icon-twitter">
+                                            <a href="{{archivo.url_host+archivo.url_file}}"target="blank"><span class="team-member-role"><i class="pi pi-eye" pTooltip="Ver archivo" tooltipPosition="top"></i></span></a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                </div>
+               
 
             </div>
         </div>

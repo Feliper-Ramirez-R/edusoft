@@ -46,6 +46,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
 import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
 import { RevisarComponent } from './views/profesores/revisar/revisar.component';
+import { RevisarPipe } from './views/profesores/revisar/revisar.pipe';
+import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
+import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar-archivos.pipe';
+
 
 
 
@@ -65,6 +69,9 @@ import { RevisarComponent } from './views/profesores/revisar/revisar.component';
     MisProgramasComponent,
     CuestionarioComponent,
     RevisarComponent,
+    RevisarPipe,
+    RevisarArchivosComponent,
+    RevisarArchivosPipe,
   ],
   imports: [
     PagesRoutingModule,

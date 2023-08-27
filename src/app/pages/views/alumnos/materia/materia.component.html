@@ -7,7 +7,6 @@
                 </div>
 
                 <div class="p-toolbar-group-right">
-                    <p-toast></p-toast>
                     <p-menu #menu [model]="options" [popup]="true"></p-menu>
                     <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"></button>
                 </div>
@@ -49,6 +48,12 @@
                                                 (click)="openMostrarCuestionario(actividad)">{{actividad.name}}</a></p>
                                     </div>
 
+                                    <div class="col-6 checkbox-row-info ">
+                                            <i *ngIf="actividad.type_id == 2 && actividad.resend == 1" (click)="openEnviarArchivo(actividad)" class="pi pi-upload" pTooltip="Subir archivo" tooltipPosition="top"></i>
+                                        <!-- <i class="pi pi-calendar"></i>
+                                            <i class="pi pi-bookmark"></i> -->
+                                    </div>
+
                                 </div>
                             </li>
                         </ul>
@@ -61,3 +66,29 @@
 </div>
 
 
+<p-dialog [(visible)]="archivoDialog" [style]="{ width: '450px' }"
+    header="Adjuntar archivo" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+
+        <div class="formgrid grid">
+            
+            <div class="field col-12">
+                <label for="email">Archivo</label>
+                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="actividad.archivo" required autofocus
+                    (change)="capturarFile($event)"
+                    [ngClass]="{ 'ng-invalid ng-dirty': submitted && !actividad.archivo }" />
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !actividad.archivo">El item es
+                    requerido.</small>
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="archivoDialog = false"></button>
+        <button pButton pRipple label="Subir" icon="pi pi-check" class="p-button-text"
+            (click)="subirArchivo()"></button>
+    </ng-template>
+</p-dialog>

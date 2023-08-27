@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
-import { RevisarService } from './revisar.service';
+import { RevisarArchivosService } from './revisar-archivos.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-revisar',
-  templateUrl: './revisar.component.html',
-  styleUrls: ['./revisar.component.scss']
+  selector: 'app-revisar-archivos',
+  templateUrl: './revisar-archivos.component.html',
+  styleUrls: ['./revisar-archivos.component.scss']
 })
-export class RevisarComponent {
+export class RevisarArchivosComponent {
 
-  actividadNumero:any ;
-  actividad:any[] = [];
+
+  archivoNumero:any ;
+  archivos:any[] = [];
   filter: string = '';
-  
-  constructor(private revisarService: RevisarService,
+
+
+  constructor(private revisarArchivoService: RevisarArchivosService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     protected user: AuthService,
@@ -24,18 +26,20 @@ export class RevisarComponent {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get('id'));
-    this.actividadNumero = this.route.snapshot.paramMap.get('id');
-    this.getRevision()
+    this.archivoNumero = this.route.snapshot.paramMap.get('id');
+    this.getRevisionArchivo()
   }
 
-  async getRevision() {
 
-    const valid: any = await this.revisarService.getRevision(this.actividadNumero);
+
+  async getRevisionArchivo() {
+
+    const valid: any = await this.revisarArchivoService.getRevisionArchivo(this.archivoNumero);
     console.log(valid)
 
     if (!valid.error) {
 
-      this.actividad = valid.data;
+      this.archivos = valid.data;
       
       if (valid.status == 200) {
        
@@ -46,6 +50,5 @@ export class RevisarComponent {
       else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
-
 
 }

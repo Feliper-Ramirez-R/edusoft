@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class MisMateriasComponent {
 
+  stateOptions: any[] = [{label: 'NO', value: 'off'}, {label: 'SI', value: 'on'}];
+
+  value: string = 'off';
 
   options: MenuItem[] = [];
   MostrarCuestionario: any = [];
@@ -138,6 +141,13 @@ export class MisMateriasComponent {
   }
 
 
+  openRevisarArchivo(actividad: any) {
+    console.log(actividad);
+
+    this.router.navigate(['/pages/revisarArchivo',actividad.id])
+  }
+
+
   agregarPregunta() {
     console.log(this.pregunta);
 
@@ -240,6 +250,7 @@ export class MisMateriasComponent {
     item.available == 1 ? this.checkedArchivo = true : false
     this.archivoDialog = true;
     console.log(this.archivo);
+    item.resend == 1 ? this.value = 'on' : 'off';
   }
 
   openEditCuestionario(item: any) {
@@ -454,7 +465,8 @@ export class MisMateriasComponent {
       mater_id: this.materia.id,
       week_number: this.semana.id,
       archivoBase64: this.archivoCapturadoBase[0].base64,
-      fileExtension: this.typefile
+      fileExtension: this.typefile,
+      resend:this.value == 'on'? true:false
     }
 
     console.log(dataPost);
@@ -493,7 +505,8 @@ export class MisMateriasComponent {
       archivoBase64: this.archivoCapturadoBase[0] ? this.archivoCapturadoBase[0].base64 : '',
       fileExtension: this.typefile,
       url_file: this.archivo.url_file,
-      available: this.checkedArchivo
+      available: this.checkedArchivo,
+      resend:this.value == 'on'? true:false
     }
 
     console.log(dataPost);

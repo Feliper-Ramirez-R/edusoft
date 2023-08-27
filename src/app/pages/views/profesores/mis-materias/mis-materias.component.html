@@ -49,7 +49,7 @@
 
                                     <div class="col-6 checkbox-row-info ">
                                         <span *ngIf="actividad.type_id == 2 || actividad.type_id == 4" style="cursor: pointer;"
-                                        (click)="actividad.type_id == 2?openRevisar(actividad):
+                                        (click)="actividad.type_id == 2?openRevisarArchivo(actividad):
                                                  actividad.type_id == 4?openRevisar(actividad):''"
                                         class="time">Revisar</span>
                                         <i (click)="actividad.type_id == 1?openEditVideo(actividad):
@@ -254,6 +254,11 @@
                 </p-dropdown>
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !semana.id">El campo es
                     requerido.</small>
+            </div>
+
+            <div class="field col-6">
+                <label class="mb-2">El archivo es calificable?</label><br>
+                <p-selectButton styleClass="field col-6" [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
 
             <div *ngIf="!crear" class="field col-12">

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MateriaService } from './materia.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-materia',
@@ -14,12 +15,21 @@ export class MateriaComponent {
   options: MenuItem[] = [];
   actividades: any[] = [];
   totalActividades:any = 0;
+
+  archivoCapturado: any[] = [];
+  archivoCapturadoBase: any[] = [];
+  typefile: string = '';
+  archivoDialog: boolean = false;
+  submitted: boolean = false;
+  actividad:any = {}
+  
  
 
   constructor(private materiaService: MateriaService,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
+    private sanitizer: DomSanitizer
   ) { }
 
 
@@ -42,17 +52,59 @@ export class MateriaComponent {
     ];
   }
 
+  openEnviarArchivo(actividad:any) {
+   this.actividad = actividad;
+    this.archivoDialog = true;
+  }
+
   
 
-  openMostrarCuestionario(actividad: any) {
-     
+  openMostrarCuestionario(actividad: any) { 
     this.router.navigate(['/pages/cuestionario',actividad.id])
-   
   }
 
 
-  async getActividades() {
+  capturarFile(event: any): any {
+    this.archivoCapturado = [];
+    this.archivoCapturadoBase = [];
+    const fileExtension = event.target.files[0].name.split('.')[1];
+    this.typefile = fileExtension;
+    console.log(fileExtension)
+    if (fileExtension != 'pptx' && fileExtension != 'docx' && fileExtension != 'pdf') { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Tipo de archivo incorrecto!', life: 5000 }); return; }
 
+    this.extraerBase64(event.target.files[0]).then((imagen: any) => {
+
+      this.archivoCapturado.push(event.target.files[0])
+      this.archivoCapturadoBase.push(imagen);
+    });
+
+    console.log(this.archivoCapturado)
+    console.log(this.archivoCapturadoBase)
+  }
+
+  extraerBase64 = async ($event: any) => new Promise((resolve): void => {
+    try {
+      const unsafeImg = window.URL.createObjectURL($event);
+      const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+      const reader = new FileReader();
+      reader.readAsDataURL($event);
+      reader.onload = () => {
+        resolve({
+          base64: reader.result
+        });
+      };
+      reader.onerror = error => {
+        resolve({
+          base: null
+        });
+      };
+    } catch (e) {
+      return;
+    }
+  })
+
+
+  async getActividades() {
 
     const valid: any = await this.materiaService.getActividades(this.idMateria);
     console.log(valid)
@@ -79,6 +131,39 @@ export class MateriaComponent {
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
       else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrio un error!', life: 5000 }); }
+    }
+  }
+
+
+  async subirArchivo() {
+
+    this.submitted = true;
+
+    if(!this.actividad.archivo){this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Selecciona un archivo!', life: 5000 });return}
+
+
+   let dataPost = {
+    archivoBase64: this.archivoCapturadoBase[0].base64,
+    fileExtension: this.typefile,
+     activity_id:this.actividad.id
+    }
+
+    console.log(dataPost);
+    
+    const valid: any = await this.materiaService.subirArchivo(dataPost);
+    console.log(valid)
+
+    if (!valid.error) {
+  
+      if (valid.status == 201) {
+        this.archivoDialog = false;
+        this.submitted = false;
+        this.getActividades();
+        this.messageService.add({ severity: 'success', summary: 'Info!', detail: valid.message, life: 5000 });
+      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+    } else {
+      if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
 
