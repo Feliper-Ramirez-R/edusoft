@@ -11,6 +11,7 @@ import { MateriaComponent } from './views/alumnos/materia/materia.component';
 import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
 import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
+import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
 
 
 
@@ -68,6 +69,11 @@ const routes: Routes = [
         {
             path:'revisarArchivo/:id',
             component: RevisarArchivosComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'notasActividad/:id',
+            component: NotasActividadComponent,
             canActivate:[AuthGuard]
         }, 
 

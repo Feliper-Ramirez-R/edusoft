@@ -49,6 +49,8 @@ import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 import { RevisarPipe } from './views/profesores/revisar/revisar.pipe';
 import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
 import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar-archivos.pipe';
+import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
+import { NotasActividadPipe } from './views/profesores/notas-actividad/notas-actividad.pipe';
 
 
 
@@ -72,6 +74,8 @@ import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar
     RevisarPipe,
     RevisarArchivosComponent,
     RevisarArchivosPipe,
+    NotasActividadComponent,
+    NotasActividadPipe,
   ],
   imports: [
     PagesRoutingModule,

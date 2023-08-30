@@ -20,6 +20,7 @@ export class MateriaComponent {
   archivoCapturadoBase: any[] = [];
   typefile: string = '';
   archivoDialog: boolean = false;
+  verNotaDialog: boolean = false;
   submitted: boolean = false;
   actividad:any = {}
   
@@ -102,6 +103,29 @@ export class MateriaComponent {
       return;
     }
   })
+
+
+  async verNota(materia:any) {
+    console.log(materia);
+    // this.verNotaDialog = true;return
+    
+
+    const valid: any = await this.materiaService.verNota(materia.id);
+    console.log(valid)
+
+    if (!valid.error) {
+  
+      this.actividades = valid.weeks
+      this.totalActividades = valid.count
+      if (valid.status == 200) {
+
+
+      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+    } else {
+      if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+    }
+  }
 
 
   async getActividades() {

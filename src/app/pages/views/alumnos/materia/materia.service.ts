@@ -13,6 +13,25 @@ export class MateriaService {
   constructor(private user: AuthService, private http: HttpClient) { }
 
 
+  async verNota(id:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.get(rutas.ruta + this.prefix+'//'+id,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
   async getActividades(id:any) {
 
     return new Promise(resolve => {
