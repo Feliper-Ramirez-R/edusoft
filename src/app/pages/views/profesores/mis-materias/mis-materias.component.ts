@@ -115,6 +115,11 @@ export class MisMateriasComponent {
         label: 'Cuestionario libre', icon: 'pi pi-question-circle', command: () => {
           this.openNewLibre();
         }
+      },
+      {
+        label: 'Ver notas materia ', icon: 'pi pi-book', command: () => {
+          this.openVerNotasFinales();
+        }
       }
     ];
     this.semanas = [
@@ -134,17 +139,23 @@ export class MisMateriasComponent {
   }
 
 
-  openRevisar(actividad: any) {
+  openEstudiantesRevisar(actividad: any) {
     console.log(actividad);
 
-    this.router.navigate(['/pages/revisar',actividad.id])
+    this.router.navigate(['/pages/estudiantesRevisar',actividad.id])
   }
 
 
-  openRevisarArchivo(actividad: any) {
+  openVerNotasFinales() {
+    console.log(this.materia);
+
+    this.router.navigate(['/pages/notasFinales',this.materia.id])
+  }
+
+  openVerNotasActividad(actividad: any) {
     console.log(actividad);
 
-    this.router.navigate(['/pages/revisarArchivo',actividad.id])
+    this.router.navigate(['/pages/notasActividad',actividad.id])
   }
 
 

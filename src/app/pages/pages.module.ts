@@ -49,6 +49,12 @@ import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 import { RevisarPipe } from './views/profesores/revisar/revisar.pipe';
 import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
 import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar-archivos.pipe';
+import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
+import { NotasActividadPipe } from './views/profesores/notas-actividad/notas-actividad.pipe';
+import { ProgramasComponent } from './views/admin/programas/programas.component';
+import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revisar/estudiantes-revisar.component';
+import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';
+import { NotasFinalesPipe } from './views/profesores/notas-finales/notas-finales.pipe';
 
 
 
@@ -72,6 +78,12 @@ import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar
     RevisarPipe,
     RevisarArchivosComponent,
     RevisarArchivosPipe,
+    NotasActividadComponent,
+    NotasActividadPipe,
+    ProgramasComponent,
+    EstudiantesRevisarComponent,
+    NotasFinalesComponent,
+    NotasFinalesPipe,
   ],
   imports: [
     PagesRoutingModule,

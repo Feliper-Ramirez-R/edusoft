@@ -6,9 +6,9 @@ import { rutas } from 'src/env/rutas'
 @Injectable({
   providedIn: 'root'
 })
-export class GruposService {
+export class ProgramasService {
 
-  prefix:string = 'groups'
+  prefix:string = 'programs'
 
   constructor(private user: AuthService, private http: HttpClient) { }
 
@@ -72,7 +72,8 @@ export class GruposService {
     });
   }
 
-  async getGrupos() {
+
+  async getprogramas() {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
@@ -90,86 +91,4 @@ export class GruposService {
       });
     });
   }
-
-  async getAlumnos(id:any) {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.user.token,
-      });
-
-      this.http.get(rutas.ruta+this.prefix +'/alums/'+id, { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(error);
-        }
-      });
-    });
-  }
-
-
-  async agregarAlumnos(dataPost:any,id:any) {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.user.token,
-      });
-
-      this.http.patch(rutas.ruta +this.prefix+'/setAlums/'+id,dataPost, { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(error);
-        }
-      });
-    });
-  }
-
- /*  async getProgramas() {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.user.token,
-      });
-
-      this.http.patch(rutas.ruta +this.prefix+'//', { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(error);
-        }
-      });
-    });
-  } */
-
-
-/*   async getProfesores() {
-
-    return new Promise(resolve => {
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer ' + this.user.token,
-      });
-
-      this.http.patch(rutas.ruta +this.prefix+'//', { headers }).subscribe({
-        next: (answer: any) => {
-          resolve(answer);
-        },
-        error: error => {
-          console.log(<any>error);
-          resolve(error);
-        }
-      });
-    });
-  } */
-
-
-
-  
 }

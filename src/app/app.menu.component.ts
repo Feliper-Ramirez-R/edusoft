@@ -21,6 +21,7 @@ export class AppMenuComponent implements OnInit {
                     label: 'Administrador', icon: 'pi pi-fw pi-desktop', routerLink: ['/usuarios'],
                     items: [
                         { label: 'Usuarios', icon: 'pi pi-fw pi-users', routerLink: ['/pages/usuarios'] },
+                        { label: 'Programas', icon: 'pi pi-fw pi-desktop', routerLink: ['/pages/programas'] },
                         { label: 'Grupos', icon: 'pi pi-fw pi-sitemap', routerLink: ['/pages/grupos'] },
                         { label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/materias'] },
     
@@ -48,6 +49,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Administrador', icon: 'pi pi-fw pi-desktop', routerLink: ['/usuarios'],
                 items: [
                     { label: 'Usuarios', icon: 'pi pi-fw pi-users', routerLink: ['/pages/usuarios'] },
+                    { label: 'Programas', icon: 'pi pi-fw pi-desktop', routerLink: ['/pages/programas'] },
                     { label: 'Grupos', icon: 'pi pi-fw pi-sitemap', routerLink: ['/pages/grupos'] },
                     { label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/pages/materias'] },
 

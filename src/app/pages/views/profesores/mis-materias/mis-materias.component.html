@@ -3,7 +3,7 @@
         <div class="card">
             <p-toolbar styleClass="mb-3">
                 <div class="p-toolbar-group-left flex flex-wrap">
-                    <h5>{{materia.name}}</h5>
+                    <h5>{{materia.name | titlecase}}</h5>
                 </div>
 
                 <div class="p-toolbar-group-right">
@@ -48,17 +48,16 @@
                                     </div>
 
                                     <div class="col-6 checkbox-row-info ">
-                                        <span *ngIf="actividad.type_id == 2 || actividad.type_id == 4" style="cursor: pointer;"
-                                        (click)="actividad.type_id == 2?openRevisarArchivo(actividad):
-                                                 actividad.type_id == 4?openRevisar(actividad):''"
+                                        <span *ngIf="actividad.type_id == 2 || actividad.type_id == 4" (click)="openEstudiantesRevisar(actividad)" style="cursor: pointer;"
                                         class="time">Revisar</span>
+                                        <i *ngIf="actividad.type_id != 1" class="pi pi-question-circle" pTooltip="Ver notas" tooltipPosition="top"(click)="openVerNotasActividad(actividad)"></i>
                                         <i (click)="actividad.type_id == 1?openEditVideo(actividad):
                                                     actividad.type_id == 2?openEditArchivo(actividad):
                                                     actividad.type_id == 3?openEditCuestionario(actividad):
                                                     actividad.type_id == 4?openEditLibre(actividad):''"
                                             class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></i>
-                                        <!-- <i class="pi pi-calendar"></i>
-                                            <i class="pi pi-bookmark"></i> -->
+                                        
+                                            <!-- <i class="pi pi-bookmark"></i> -->
                                     </div>
                                 </div>
                             </li>

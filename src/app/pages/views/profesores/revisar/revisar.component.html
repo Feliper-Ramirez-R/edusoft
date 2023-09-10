@@ -1,6 +1,4 @@
-
-    
-<p-toolbar>
+<!-- <p-toolbar>
     <div class="p-toolbar-group-start">
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -10,37 +8,64 @@
     <div class="p-toolbar-group-end">
        
     </div>
-</p-toolbar>
-    
-    <div class="grid">
-        <div *ngFor="let pregunta of actividad; let i = index" class="col-12 lg:col-6 md:col-6">
-            <div class="card border-1 surface-border m-3">
+</p-toolbar> -->
 
-                <div class="text-500 mb-3">pregunta # {{i+1}}</div>
+<div class="grid">
+    <div *ngFor="let pregunta of actividad; let i = index" class="col-12 lg:col-6 md:col-6">
+        <div class="card border-1 surface-border m-3">
 
-                <h5>{{pregunta.question}}</h5>
-                <div *ngFor="let respuesta of pregunta.answers | revisar:filter; let i = index">
+            <div class="text-500 mb-3">pregunta # {{i+1}}</div>
 
-                    <div class="card widget-team">
-                        <ul>
-                            <li>
-                                <div class="grid member">
-                                    <div class="col-7 team-box">
-                                        <div class="profile-image">
-                                            <img src="assets/images/user.png"
-                                                alt="mirage-layout" />
-                                        </div>
-                                        <div>
-                                            <h6 class="team-member">{{respuesta.name}}</h6>
-                                            <span class="team-member-role">{{respuesta.answer}}</span>
-                                        </div>
+            <h5>{{pregunta.question}}</h5>
+           
+
+                <div class="card widget-team">
+                    <ul>
+                        <li>
+                            <div class="grid member">
+                                <div class="col-7 team-box">
+                                    <div class="profile-image">
+                                        <img src="assets/images/user.png" alt="mirage-layout" />
+                                    </div>
+                                    <div>
+                                        <h6 class="team-member">{{pregunta.name}}</h6>
+                                        <span class="team-member-role">{{pregunta.answer}}</span>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                                <div class="col-5 icons">
 
-            </div>
+                                    <div class="flex flex-wrap gap-3">
+                                        <div class="flex align-items-center">
+                                            <p-radioButton value="1" [(ngModel)]="pregunta.nota"
+                                                inputId="ingredient1"></p-radioButton>
+                                            <label class="ml-2 text-green-500">Bueno</label>
+                                        </div>
+
+                                        <div class="flex align-items-center">
+                                            <p-radioButton value="0" [(ngModel)]="pregunta.nota"
+                                                inputId="ingredient2"></p-radioButton>
+                                            <label style="color: red;" class="ml-2">Malo</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+           
         </div>
-   
+    </div>
+
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toolbar>
+                <div class="p-toolbar-group-start"></div>
+
+                <div class="p-toolbar-group-center">
+                    <p-button (click)="GuardarNotas()" label="Guardar" icon="pi pi-plus" class="mr-2"></p-button>
+                </div>
+                <div class="p-toolbar-group-end"></div>
+            </p-toolbar>
+        </div>
+    </div>

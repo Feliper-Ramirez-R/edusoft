@@ -11,10 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RevisarComponent {
 
-  actividadNumero:any ;
-  actividad:any[] = [];
+  actividadNumero: any;
+  estudiante: any;
+  actividad: any[] = [];
   filter: string = '';
-  
+
   constructor(private revisarService: RevisarService,
     private messageService: MessageService,
     private route: ActivatedRoute,
@@ -24,21 +25,62 @@ export class RevisarComponent {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get('id'));
-    this.actividadNumero = this.route.snapshot.paramMap.get('id');
+    let a: any = this.route.snapshot.paramMap.get('id')?.split(",");
+    this.actividadNumero = a[0];
+    this.estudiante = a[1]
     this.getRevision()
   }
 
-  async getRevision() {
 
-    const valid: any = await this.revisarService.getRevision(this.actividadNumero);
+  async GuardarNotas() {
+    console.log(this.actividad);
+    const preg_buenas = this.actividad.filter((item: any) => item.nota === '1').length;
+
+    let val_preg = 5 / this.actividad.length;
+    let nota = val_preg * preg_buenas;
+    console.log(nota);
+
+    let dataPost = {
+      score:nota,
+      mater_id:this.actividad[0].mater_id,
+      activity_id:this.actividad[0].activity_id,
+      user_id:this.actividad[0].user_id
+    }
+
+    const valid: any = await this.revisarService.GuardarNotas(dataPost);
     console.log(valid)
 
     if (!valid.error) {
 
       this.actividad = valid.data;
-      
+
       if (valid.status == 200) {
-       
+       this.getRevision();
+       this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
+      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+    } else {
+      if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+    }
+
+  }
+
+
+  async getRevision() {
+
+    let dataPost = {
+      alumn_id: this.estudiante
+    }
+
+    const valid: any = await this.revisarService.getRevision(this.actividadNumero, dataPost);
+    console.log(valid)
+
+    if (!valid.error) {
+
+      this.actividad = valid.data;
+
+      if (valid.status == 200) {
+
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {

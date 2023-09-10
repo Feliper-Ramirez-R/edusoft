@@ -3,6 +3,7 @@ import { MateriaService } from './materia.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-materia',
@@ -20,8 +21,13 @@ export class MateriaComponent {
   archivoCapturadoBase: any[] = [];
   typefile: string = '';
   archivoDialog: boolean = false;
+  verNotaDialog: boolean = false;
+  verNotaFinalDialog: boolean = false;
   submitted: boolean = false;
   actividad:any = {}
+  nombre_materia: any = '';
+  nota: any = {};
+  notaFinal: any = {};
   
  
 
@@ -29,7 +35,8 @@ export class MateriaComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    protected user:AuthService
   ) { }
 
 
@@ -39,18 +46,22 @@ export class MateriaComponent {
     this.idMateria = this.route.snapshot.paramMap.get('id');
     this.getActividades()
     this.options = [
-      {
+     /*  {
         label: 'Profesor', icon: 'pi pi-user', command: () => {
 
         }
-      },
+      }, */
       {
         label: 'Calificaciones', icon: 'pi pi-table', command: () => {
-
+            this.verNotaFinal();
         }
       }
     ];
   }
+
+ /*  clickMateria(materia: any) {
+    this.materia = materia;
+  } */
 
   openEnviarArchivo(actividad:any) {
    this.actividad = actividad;
@@ -104,6 +115,53 @@ export class MateriaComponent {
   })
 
 
+  async verNota(actividad:any) {
+    console.log(actividad);
+     
+    let dataPost = {
+      mater_id:this.idMateria,
+      activity_id:actividad.id
+    }
+
+    const valid: any = await this.materiaService.verNota(dataPost);
+    console.log(valid);
+
+    if (!valid.error) {
+      this.nota = valid
+      if (valid.status == 200) {
+        this.verNotaDialog = true;
+
+      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+    } else {
+      if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+    }
+  }
+
+
+  async verNotaFinal() {
+    console.log(this.idMateria);
+    
+    
+
+    const valid: any = await this.materiaService.verNotaFinal(this.idMateria);
+    console.log(valid)
+
+    if (!valid.error) {
+  
+      this.notaFinal = valid.data
+      
+      if (valid.status == 200) {
+        this.verNotaFinalDialog = true;
+
+      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+    } else {
+      if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+    }
+  }
+
+
   async getActividades() {
 
     const valid: any = await this.materiaService.getActividades(this.idMateria);
@@ -111,6 +169,7 @@ export class MateriaComponent {
 
     if (!valid.error) {
   
+      this.nombre_materia = valid.mater_name
       this.actividades = valid.weeks
       this.totalActividades = valid.count
       if (valid.status == 200) {

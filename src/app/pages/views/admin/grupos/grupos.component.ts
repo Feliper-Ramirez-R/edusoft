@@ -16,8 +16,10 @@ export class GruposComponent {
 
   selectedAlumnos: any[] = [];
   alumnos: any[] = [];
-/*   programas: any[] = [];
-  profesores: any[] = []; */
+
+  programas: any[] = [];
+  programa:any = {};
+  
   alumnosGrupo: any[] = [];
   itemEditDialog: boolean = false;
   itemDeleteDialog: boolean = false;
@@ -46,7 +48,8 @@ export class GruposComponent {
     this.submitted = false;
   }
   openEdit(item: any) {
-    this.crear = false
+    this.crear = false;
+    this.programa = {id:item.program,name:item.program_name};
     this.item = { ...item };
     this.itemEditDialog = true;
     console.log(item);
@@ -71,6 +74,7 @@ export class GruposComponent {
   openNew() {
     this.crear = true;
     this.item = {};
+    this.programa = {};
     this.submitted = false;
     this.itemEditDialog = true;
   }
@@ -104,6 +108,7 @@ export class GruposComponent {
     let dataPost = {
 
        name: this.item.name,
+       program:this.programa.id
       /*  dni: String(this.item.dni),
        role: this.perfil.id,
        email: this.item.email */
@@ -137,6 +142,7 @@ export class GruposComponent {
     let dataPost = {
 
       name: this.item.name,
+      program:this.programa.id
       /*  dni: String(this.item.dni),
        role: this.perfil.id,
        email: this.item.email, */
@@ -169,13 +175,14 @@ export class GruposComponent {
           element.alumns? element.alumns =  element.alumns.split(','):''
         });
    
-      this.datosDB = valid.data
+      this.datosDB = valid.data;
+      this.programas = valid.programs
       if (valid.status == 200) {
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
-      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrio un error!', life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
 

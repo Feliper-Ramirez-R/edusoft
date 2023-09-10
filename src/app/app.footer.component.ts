@@ -5,10 +5,10 @@ import {Component} from '@angular/core';
     template: `
         <div class="layout-footer">
 			<div class="logo-text">
-				<img style="border-radius: 50%;" src="assets/images/edu.png" alt="mirage-layout" />
+				<img src="assets/images/Edu-Logo.png" alt="mirage-layout" />
 				<div class="text">
-					<h1>DAIJ</h1>
-					<span>Powered by Zaga dev - {{fecha | date:'yyyy'}}</span>
+					<h1>Edu-Softing</h1>
+					<span>Powered by Softingdev - {{fecha | date:'yyyy'}}</span>
 				</div>
 			</div>
 			<div class="icons">

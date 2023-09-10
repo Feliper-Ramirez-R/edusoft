@@ -11,6 +11,10 @@ import { MateriaComponent } from './views/alumnos/materia/materia.component';
 import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario.component';
 import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
+import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
+import { ProgramasComponent } from './views/admin/programas/programas.component';
+import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revisar/estudiantes-revisar.component';
+import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';
 
 
 
@@ -28,6 +32,11 @@ const routes: Routes = [
         {
             path:'usuarios',
             component: UsuariosComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'programas',
+            component: ProgramasComponent,
             canActivate:[AuthGuard]
         }, 
         {
@@ -68,6 +77,21 @@ const routes: Routes = [
         {
             path:'revisarArchivo/:id',
             component: RevisarArchivosComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'notasActividad/:id',
+            component: NotasActividadComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'notasFinales/:id',
+            component: NotasFinalesComponent,
+            canActivate:[AuthGuard]
+        }, 
+        {
+            path:'estudiantesRevisar/:id',
+            component: EstudiantesRevisarComponent,
             canActivate:[AuthGuard]
         }, 
 

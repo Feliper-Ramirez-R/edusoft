@@ -13,6 +13,7 @@ export class RevisarArchivosComponent {
 
 
   archivoNumero:any ;
+  estudiante:any ;
   archivos:any[] = [];
   filter: string = '';
 
@@ -26,7 +27,9 @@ export class RevisarArchivosComponent {
 
   ngOnInit() {
     console.log(this.route.snapshot.paramMap.get('id'));
-    this.archivoNumero = this.route.snapshot.paramMap.get('id');
+   let a:any = this.route.snapshot.paramMap.get('id')?.split(",");
+    this.archivoNumero = a[0];
+    this.estudiante = a[1]
     this.getRevisionArchivo()
   }
 
@@ -34,7 +37,11 @@ export class RevisarArchivosComponent {
 
   async getRevisionArchivo() {
 
-    const valid: any = await this.revisarArchivoService.getRevisionArchivo(this.archivoNumero);
+    let dataPost = {
+      alumn_id:this.estudiante
+    }
+
+    const valid: any = await this.revisarArchivoService.getRevisionArchivo(this.archivoNumero,dataPost);
     console.log(valid)
 
     if (!valid.error) {

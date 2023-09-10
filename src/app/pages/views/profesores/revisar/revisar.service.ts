@@ -13,14 +13,34 @@ export class RevisarService {
   constructor(private user: AuthService, private http: HttpClient) { }
 
 
-  async getRevision(id:any) {
+  async getRevision(id:any,dataPost:any) {
 
     return new Promise(resolve => {
       const headers = new HttpHeaders({
         Authorization: 'Bearer ' + this.user.token,
       });
 
-      this.http.get(rutas.ruta + this.prefix+'/myRevisions/'+id,{ headers }).subscribe({
+      this.http.patch(rutas.ruta + this.prefix+'/myRevisions/'+id,dataPost,{ headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  }
+
+
+  async GuardarNotas(dataPost:any) {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.post(rutas.ruta + this.prefix+'/saveScore',dataPost,{ headers }).subscribe({
         next: (answer: any) => {
           resolve(answer);
         },
