@@ -22,6 +22,7 @@ export class MateriaComponent {
   typefile: string = '';
   archivoDialog: boolean = false;
   verNotaDialog: boolean = false;
+  verNotaDialog: boolean = false;
   verNotaFinalDialog: boolean = false;
   submitted: boolean = false;
   actividad:any = {}

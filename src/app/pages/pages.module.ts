@@ -51,6 +51,8 @@ import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/re
 import { RevisarArchivosPipe } from './views/profesores/revisar-archivos/revisar-archivos.pipe';
 import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
 import { NotasActividadPipe } from './views/profesores/notas-actividad/notas-actividad.pipe';
+import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
+import { NotasActividadPipe } from './views/profesores/notas-actividad/notas-actividad.pipe';
 import { ProgramasComponent } from './views/admin/programas/programas.component';
 import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revisar/estudiantes-revisar.component';
 import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';

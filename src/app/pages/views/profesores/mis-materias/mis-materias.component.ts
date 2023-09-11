@@ -158,6 +158,12 @@ export class MisMateriasComponent {
     this.router.navigate(['/pages/notasActividad',actividad.id])
   }
 
+  openVerNotasActividad(actividad: any) {
+    console.log(actividad);
+
+    this.router.navigate(['/pages/notasActividad',actividad.id])
+  }
+
 
   agregarPregunta() {
     console.log(this.pregunta);
