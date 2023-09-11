@@ -152,11 +152,6 @@ export class MisMateriasComponent {
     this.router.navigate(['/pages/notasFinales',this.materia.id])
   }
 
-  openVerNotasActividad(actividad: any) {
-    console.log(actividad);
-
-    this.router.navigate(['/pages/notasActividad',actividad.id])
-  }
 
   openVerNotasActividad(actividad: any) {
     console.log(actividad);

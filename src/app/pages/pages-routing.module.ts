@@ -12,7 +12,6 @@ import { CuestionarioComponent } from './views/alumnos/cuestionario/cuestionario
 import { RevisarComponent } from './views/profesores/revisar/revisar.component';
 import { RevisarArchivosComponent } from './views/profesores/revisar-archivos/revisar-archivos.component';
 import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
-import { NotasActividadComponent } from './views/profesores/notas-actividad/notas-actividad.component';
 import { ProgramasComponent } from './views/admin/programas/programas.component';
 import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revisar/estudiantes-revisar.component';
 import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';
