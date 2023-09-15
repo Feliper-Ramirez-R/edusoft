@@ -14,7 +14,7 @@ export class AppMenuComponent implements OnInit {
                 private user:AuthService) { }
 
     ngOnInit() {
-        if(this.user.user.role_name == 'S_ADMIN'){
+        if(this.user.user.role == 1){
             this.model = [
                 { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
                 {
@@ -41,7 +41,7 @@ export class AppMenuComponent implements OnInit {
                 },
             ];
         }
-     else if(this.user.user.role_name == 'ADMIN')
+     else if(this.user.user.role == 2)
       {
         this.model = [
             { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
@@ -68,7 +68,7 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
         ];
-      }else if(this.user.user.role_name == 'DOCENTE')
+      }else if(this.user.user.role == 4)
       {
         this.model = [
             { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
@@ -79,7 +79,7 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
         ];
-      }else if(this.user.user.role_name == 'ALUMNO')
+      }else if(this.user.user.role == 5)
       {
         this.model = [
             { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['home'] },
