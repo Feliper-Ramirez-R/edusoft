@@ -21,7 +21,7 @@
 
 
             <p-table #dt [value]="datosDB" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['name','program_name','user_count']" [rows]="10" [paginator]="true"
+                [globalFilterFields]="['name','teacher','created_at']" [rows]="10" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate=" {first} - {last} de {totalRecords} registros" 
                 selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -38,8 +38,8 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="name">Profesor <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="program_name">Fecha creación <p-sortIcon field="program_name"></p-sortIcon></th>
+                        <th pSortableColumn="teacher">Profesor <p-sortIcon field="teacher"></p-sortIcon></th>
+                        <th pSortableColumn="created_at">Fecha creación <p-sortIcon field="created_at"></p-sortIcon></th>
                         <!-- <th pSortableColumn="user_count">Alumnos <p-sortIcon field="user_count"></p-sortIcon></th> -->
 
                         <th></th>
@@ -53,9 +53,9 @@
                         
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar grupo" tooltipPosition="top"
+                                <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar materia" tooltipPosition="top"
                                     class="p-button-rounded p-button-primary mr-2" (click)="openEdit(item)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Eliminar grupo" tooltipPosition="top"
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Eliminar materia" tooltipPosition="top"
                                     (click)="deleteAlert(item)"></button>
                             </div>
                         </td>
@@ -66,7 +66,7 @@
         </div>
 
         <p-dialog [(visible)]="itemEditDialog" [style]="{ width: '450px'}"
-            header="{{ crear ? 'Nueva materia' : 'Actualizar grupo' }}" [modal]="true" class="p-fluid">
+            header="{{ crear ? 'Nueva materia' : 'Actualizar materia' }}" [modal]="true" class="p-fluid">
             <ng-template pTemplate="content">
                 <div class="field">
                     <label for="name">Nombre</label>
@@ -128,7 +128,7 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="itemDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+        <p-dialog [(visible)]="itemDeleteDialog" header="Eliminar una materia" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
                 <span *ngIf="item">Esta seguro que quieres eliminar la materia <b>{{ item.name }}</b>?</span>
@@ -136,7 +136,7 @@
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                     (click)="itemDeleteDialog = false"></button>
-                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si"
                     (click)="deleteItem()"></button>
             </ng-template>
         </p-dialog>
