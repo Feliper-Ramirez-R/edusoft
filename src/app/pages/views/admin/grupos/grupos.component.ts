@@ -91,6 +91,7 @@ export class GruposComponent {
       if (valid.status == 200) {
         this.item = {};
         this.getGrupos();
+        this.selectedAlumnos = [];
         this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
@@ -136,7 +137,7 @@ export class GruposComponent {
     console.log(this.item, 'crear');
 
     this.submitted = true;
-    if (!this.item.name /* Object.values(this.item).length < 3  */) {
+    if (!this.item.name || !this.programa.id) {
       this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return
     };
     let dataPost = {
@@ -192,6 +193,7 @@ export class GruposComponent {
     console.log(valid);
     if (!valid.error) {
       this.alumnos = valid.data;
+      this.selectedAlumnos = [];
       this.alumnosModal = true;
       if (valid.status == 200) {
 
@@ -265,6 +267,7 @@ export class GruposComponent {
       this.alumnos = valid.data;
       this.alumnosModal = true;
       if (valid.status == 201) {
+        this.selectedAlumnos = [];
         this.item = {};
         this.alumnosModal = false;
         this.getGrupos();

@@ -57,9 +57,9 @@
 
                         <td>
                             <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar grupo" tooltipPosition="top"
+                                <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar programa" tooltipPosition="top"
                                     class="p-button-rounded p-button-primary mr-2" (click)="openEdit(item)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Eliminar grupo" tooltipPosition="top"
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Eliminar programa" tooltipPosition="top"
                                     (click)="deleteAlert(item)"></button>
                             </div>
                         </td>
@@ -89,15 +89,15 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="itemDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+        <p-dialog [(visible)]="itemDeleteDialog" header="Eliminar programa" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="item">Esta seguro que quieres eliminar el usuario <b>{{ item.name }}</b>?</span>
+                <span *ngIf="item">Esta seguro que quieres eliminar el programa <b>{{ item.name }}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                     (click)="itemDeleteDialog = false"></button>
-                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si"
                     (click)="deleteItem()"></button>
             </ng-template>
         </p-dialog>  

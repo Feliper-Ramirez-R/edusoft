@@ -81,7 +81,8 @@
                 <div class="field">
                     <label for="">Programas</label>
                     <p-dropdown [options]="programas" [(ngModel)]="programa" optionLabel="name" appendTo="body"
-                        placeholder="Seleccione" emptyMessage="No hay resultados">
+                        placeholder="Seleccione" emptyMessage="No hay resultados"
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !programa.id }">
                         <ng-template pTemplate="selectedItem">
                             <span *ngIf="programa">{{ programa.name }}</span>
                         </ng-template>
@@ -90,34 +91,8 @@
                             <span>{{ program.name }}</span>
                         </ng-template>
                     </p-dropdown>
-                </div>
-
-                <div class="formgrid grid">
-                   <!--  <div class="field col">
-                        <label for="dni">Cédula</label>
-                        <input type="number" id="dni" pInputText [(ngModel)]="item.dni" autofocus
-                            [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.dni }">
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El item es requerido.</small>
-                    </div>
- -->
-                   <!--  <div class="field col">
-                        <label for="">Perfil</label>
-
-                        <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="name"
-                            placeholder="Seleccione" emptyMessage="No hay resultados"
-                            [ngClass]="{ 'ng-invalid ng-dirty': submitted && !perfil.id }">
-                            <ng-template pTemplate="selectedItem">
-                                <span *ngIf="perfil">{{ perfil.name }}</span>
-                            </ng-template>
-
-                            <ng-template let-perfile pTemplate="item">
-                                <span>{{ perfile.name }}</span>
-                            </ng-template>
-                        </p-dropdown>
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !perfil.id">El campo es
-                            requerido.</small>
-                    </div> -->
-
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !programa.id">El campo es
+                        requerido.</small>
                 </div>
 
             </ng-template>
@@ -130,15 +105,15 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog [(visible)]="itemDeleteDialog" header="Confirm" [modal]="true" [style]="{ width: '450px' }">
+        <p-dialog [(visible)]="itemDeleteDialog" header="Eliminar" [modal]="true" [style]="{ width: '450px' }">
             <div class="flex align-items-center justify-content-center">
                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                <span *ngIf="item">Esta seguro que quieres eliminar el usuario <b>{{ item.name }}</b>?</span>
+                <span *ngIf="item">Esta seguro que quieres eliminar el grupo <b>{{ item.name }}</b>?</span>
             </div>
             <ng-template pTemplate="footer">
                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
                     (click)="itemDeleteDialog = false"></button>
-                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                 <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si"
                     (click)="deleteItem()"></button>
             </ng-template>
         </p-dialog>
@@ -149,7 +124,7 @@
 
             <p-table #dt1 [value]="alumnos" responsiveLayout="scroll" [rows]="10"
             [globalFilterFields]="['name','email','role_name']"
-            [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+            [rows]="10" [paginator]="true" appendTo="body" [showCurrentPageReport]="true"
             currentPageReportTemplate=" {first} - {last} de {totalRecords} registros"
             [(selection)]="selectedAlumnos" selectionMode="multiple" [rowHover]="false" dataKey="id">
             <ng-template pTemplate="caption">
