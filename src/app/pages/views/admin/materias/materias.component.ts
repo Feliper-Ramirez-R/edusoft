@@ -16,6 +16,9 @@ export class MateriasComponent {
   profesores: any[] = [];
   profesor: any = {};
 
+  programas: any[] = [];
+  programa: any = {};
+
   itemEditDialog: boolean = false;
   itemDeleteDialog: boolean = false;
 
@@ -85,12 +88,13 @@ export class MateriasComponent {
 
   async editItem() {
     this.submitted = true;
-    if (!this.item.name) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
+    if (!this.item.name || !this.programa.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
 
     let dataPost = {
 
        name: this.item.name,
-       teacher_id: this.profesor.id
+       teacher_id: this.profesor.id,
+       program_id:this.programa.id
     }
     console.log(dataPost)
     const valid: any = await this.materiasService.editItem(dataPost, this.item.id);
@@ -115,13 +119,14 @@ export class MateriasComponent {
     console.log(this.item, 'crear');
 
     this.submitted = true;
-    if (!this.item.name /* Object.values(this.item).length < 3  */) {
+    if (!this.item.name || !this.programa.id) {
       this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return
     };
     let dataPost = {
 
       name: this.item.name,
-      teacher_id: this.profesor.id
+      teacher_id: this.profesor.id,
+      program_id:this.programa.id
     }
     console.log(dataPost);
     const valid: any = await this.materiasService.saveItem(dataPost);
@@ -135,7 +140,7 @@ export class MateriasComponent {
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
-      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrio un error!', life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
 
@@ -148,12 +153,13 @@ export class MateriasComponent {
    
       this.datosDB = valid.data;
       this.profesores = valid.teachers;
+      this.programas = valid.programs;
       if (valid.status == 200) {
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
-      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrio un error!', life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
 

@@ -347,13 +347,13 @@ export class MisMateriasComponent {
 
     this.submitted = true;
 
-    if (!this.video.name || !this.video.url || !this.semana) { return }
+    if (!this.video.name || !this.video.url_class || !this.semana.id || !this.grupo.id) { return }
 
     let dataPost = {
       group: this.grupo.id,
       name: this.video.name,
       mater_id: this.materia.id,
-      url_class: this.video.url,
+      url_class: this.video.url_class,
       week_number: this.semana.id
     }
 

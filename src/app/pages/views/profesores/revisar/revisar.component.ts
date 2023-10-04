@@ -55,7 +55,7 @@ export class RevisarComponent {
       this.actividad = valid.data;
 
       if (valid.status == 200) {
-       this.getRevision();
+        this.router.navigate(['/pages/mis-materias'])
        this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
@@ -71,6 +71,10 @@ export class RevisarComponent {
     let dataPost = {
       alumn_id: this.estudiante
     }
+
+    console.log(dataPost);
+    console.log(this.actividadNumero);
+    
 
     const valid: any = await this.revisarService.getRevision(this.actividadNumero, dataPost);
     console.log(valid)

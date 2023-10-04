@@ -30,6 +30,7 @@ export class NotasActividadComponent {
 
   async verNotasActividad() {
 
+
     const valid: any = await this.notasService.verNotasActividad(this.id_actividad);
     console.log(valid)
 

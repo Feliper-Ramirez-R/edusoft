@@ -44,19 +44,21 @@
 
                                         <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"><a
                                                 style="cursor: pointer;"
-                                                (click)="openMostrarCuestionario(actividad)">{{actividad.name}}</a></p>
+                                                (click)="openMostrarCuestionario(actividad)">{{actividad.name | titlecase}}</a></p>
                                     </div>
 
                                     <div class="col-6 checkbox-row-info ">
-                                        <span *ngIf="actividad.type_id == 2 || actividad.type_id == 4" (click)="openEstudiantesRevisar(actividad)" style="cursor: pointer;"
+                                        <span *ngIf="actividad.type_id == 2 && actividad.resend ==1 || actividad.type_id == 4" (click)="openEstudiantesRevisar(actividad)" style="cursor: pointer;"
                                         class="time">Revisar</span>
-                                        <i *ngIf="actividad.type_id != 1" class="pi pi-question-circle" pTooltip="Ver notas" tooltipPosition="top"(click)="openVerNotasActividad(actividad)"></i>
+
+                                        <i *ngIf="actividad.type_id != 1 || actividad.resend == 1" class="pi pi-question-circle" pTooltip="Ver notas" tooltipPosition="top"(click)="openVerNotasActividad(actividad)"></i>
+                                        
                                         <i (click)="actividad.type_id == 1?openEditVideo(actividad):
                                                     actividad.type_id == 2?openEditArchivo(actividad):
                                                     actividad.type_id == 3?openEditCuestionario(actividad):
                                                     actividad.type_id == 4?openEditLibre(actividad):''"
                                             class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></i>
-                                        <i class="pi pi-question-circle" pTooltip="Ver notas" tooltipPosition="top"(click)="openVerNotasActividad(actividad)"></i>
+                                        <!-- <i class="pi pi-question-circle" pTooltip="Ver notas" tooltipPosition="top"(click)="openVerNotasActividad(actividad)"></i> -->
                                             <!-- <i class="pi pi-bookmark"></i> -->
                                     </div>
                                 </div>

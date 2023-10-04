@@ -1,6 +1,6 @@
 <div class="card">
     <h5>Mis programas</h5>
-    <p-panel *ngFor="let programa of programas" header="{{programa.program_name}}" [collapsed]="true" [toggleable]="true" class="line-height-3 m-0" styleClass="mb-1">
+    <p-panel *ngFor="let programa of programas" header="{{programa.program_name |titlecase}}" [collapsed]="true" [toggleable]="true" class="line-height-3 m-0" styleClass="mb-1">
 
         <div class="col-12">
             <div class="card widget-download-files">
