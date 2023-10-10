@@ -33,7 +33,9 @@
                             <li class="checkbox-row border-1 border-300 mb-1">
                                 <div class="grid ">
                                     <div class="col-6 m-0 checkbox"
-                                        [ngClass]="{ 'line-through': actividad.available ==0}">
+                                        [ngClass]="{ 'line-through pointer-events-none': actividad.available ==0}"
+                                        
+                                        >
                                         <i
                                             class="{{actividad.type_id == 1?'pi pi-video mt-2':
                                                             actividad.type_id == 2?'pi pi-file-export mt-2':
@@ -44,15 +46,15 @@
                                                 href="{{actividad.type_id == 1?actividad.url_class:
                                                               actividad.type_id == 2?actividad.url_host+actividad.url_file:''}}" target="blank">{{actividad.name}}</a></p>
 
-                                        <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"><a
-                                                style="cursor: pointer;"
+                                        <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"  ><a
+                                                style="cursor: pointer;" 
                                                 (click)="openMostrarCuestionario(actividad)">{{actividad.name}}</a></p>
                                     </div>
 
                                     <div class="col-6 checkbox-row-info ">
                                             <i *ngIf="actividad.type_id == 2 && actividad.resend == 1" (click)="openEnviarArchivo(actividad)" class="pi pi-upload" pTooltip="Subir archivo" tooltipPosition="top"></i>
                                         <!-- <i class="pi pi-calendar"></i> -->
-                                            <i class="pi pi-question-circle" (click)="verNota(actividad)" pTooltip="Ver nota" tooltipPosition="top"></i>
+                                            <i *ngIf=" actividad.resend == 1 || actividad.resend == null" class="pi pi-question-circle" (click)="verNota(actividad)" pTooltip="Ver nota" tooltipPosition="top"></i>
                         
                                     </div>
 

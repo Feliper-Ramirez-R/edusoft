@@ -140,14 +140,14 @@
                 <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="video.name" required autofocus
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !video.name }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.name">El item es requerido.</small>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.name">El campo es requerido.</small>
             </div>
 
             <div class="field col-12">
                 <label for="email">Url</label>
                 <input type="text" pInputText id="name" [(ngModel)]="video.url_class" required autofocus
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !video.url_class }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.url_class">El item es requerido.</small>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !video.url_class">El campo es requerido.</small>
             </div>
 
             <div class="field col-12 ">
@@ -211,7 +211,7 @@
                 <label for="name">Nombre</label>
                 <input type="text" pInputText id="name" [(ngModel)]="archivo.name" required autofocus
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !archivo.name }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.name">El item es requerido.</small>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.name">El campo es requerido.</small>
             </div>
 
             <div class="field col-12">

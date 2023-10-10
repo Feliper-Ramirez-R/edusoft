@@ -32,6 +32,11 @@
                                 </div>
                             </div>
                             <div class="col-5 icons">
+                                <div class="icon icon-hastag">
+                                    <a (click)="calificar()" ><span
+                                        class="team-member-role"><i class="pi pi-bookmark" pTooltip="Calificar"
+                                            tooltipPosition="top"></i></span></a>
+                                </div>
                                 <div class="icon icon-twitter">
                                     <a href="{{archivo.url_host+archivo.url_file}}" target="blank"><span
                                             class="team-member-role"><i class="pi pi-eye" pTooltip="Ver archivo"
@@ -44,3 +49,26 @@
             </div>
         </div>
     </div>
+
+
+
+    <p-dialog [(visible)]="calificarDialog" [style]="{ width: '450px' }"
+    header="Ingresa nota" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+
+            <label for="name">Calificación</label>
+            <input type="text" pInputText id="name" [(ngModel)]="nota" required autofocus
+                [ngClass]="{ 'ng-invalid ng-dirty': submitted && nota }" />
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && nota">El nombre debe tener mínimo 10 caracteres.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="calificarDialog = false"></button>
+        <button pButton pRipple label="Enviar" icon="pi pi-check"
+            class="p-button-text" (click)="GuardarNotas()"></button>
+    </ng-template>
+</p-dialog>

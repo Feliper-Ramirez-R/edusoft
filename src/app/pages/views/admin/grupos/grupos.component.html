@@ -75,7 +75,7 @@
                     <label for="name">Nombre</label>
                     <input type="text" pInputText id="name" [(ngModel)]="item.name" required autofocus
                         [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.name }" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name">El item es requerido.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.name">El campo es requerido.</small>
                 </div>
 
                 <div class="field">

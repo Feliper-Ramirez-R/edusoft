@@ -78,7 +78,7 @@
                     <label for="email">Email</label>
                     <input type="text" pInputText id="name" [(ngModel)]="item.email" required autofocus
                         [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.email }" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.email">El item es requerido.</small>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.email">El campo es requerido.</small>
                 </div>
 
                 <div class="formgrid grid">
@@ -86,7 +86,7 @@
                         <label for="dni">Cédula</label>
                         <input type="number" id="dni" pInputText [(ngModel)]="item.dni" autofocus
                             [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.dni }">
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El item es requerido.</small>
+                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El campo es requerido.</small>
                     </div>
 
                     <div class="field col">
