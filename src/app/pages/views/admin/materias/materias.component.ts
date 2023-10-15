@@ -40,7 +40,8 @@ export class MateriasComponent {
   openEdit(item: any) {
     this.crear = false
     this.item = { ...item };
-    this.profesor = {id:item.teacher_id,name:item.teacher}
+    this.profesor = {id:item.teacher_id,name:item.teacher};
+    this.programa = {id:item.program_id,name:item.program_name};
     this.itemEditDialog = true;
     console.log(item);
   }
