@@ -588,10 +588,13 @@ export class MisMateriasComponent {
   capturarFile(event: any): any {
     this.archivoCapturado = [];
     this.archivoCapturadoBase = [];
-    const fileExtension = event.target.files[0].name.split('.')[1];
+    console.log(event.target.files[0].name);
+    
+    let fileExtension = event.target.files[0].name.split('.');
+    fileExtension = fileExtension[fileExtension.length-1]
     this.typefile = fileExtension;
     console.log(fileExtension)
-    if (fileExtension != 'pptx' && fileExtension != 'docx' && fileExtension != 'pdf') { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Tipo de archivo incorrecto!', life: 5000 }); return; }
+    if (fileExtension != 'pptx' && fileExtension != 'docx' && fileExtension != 'pdf'&&fileExtension != 'PPTX' && fileExtension != 'DOCX' && fileExtension != 'PDF') { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Tipo de archivo incorrecto', life: 5000 }); return; }
 
     this.extraerBase64(event.target.files[0]).then((imagen: any) => {
 

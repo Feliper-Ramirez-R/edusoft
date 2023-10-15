@@ -16,7 +16,8 @@ export class UsuariosComponent {
   perfiles: any[] = [];
   perfil: any = {};
 
-
+  value: string = '';
+  stateOptions: any[] = [{ label: 'Habilitado', value: 'on' }, { label: 'Inhabilitado', value: 'off' }];
 
   itemEditDialog: boolean = false;
   itemDeleteDialog: boolean = false;
@@ -43,12 +44,13 @@ export class UsuariosComponent {
     this.submitted = false;
   }
   openEdit(item: any) {
+    if(item.enabled == 1){this.value = 'on'}else{this.value = 'off'}
+    console.log(this.value);
     this.perfil = { id: item.role, role: item.role_name }
     this.crear = false
     this.item = { ...item };
     this.itemEditDialog = true;
     console.log(item);
-    console.log(this.perfil);
   }
 
   deleteAlert(item: any) {
@@ -90,15 +92,23 @@ export class UsuariosComponent {
 
   async editItem() {
     this.submitted = true;
-    if (!this.item.name || !this.item.dni || !this.item.email || !this.perfil.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
+
+    //validar email..... Utiliza el método test() para verificar si el email cumple con la expresión regular
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!this.item.name || this.item.name.length < 10 || !this.item.dni || !this.item.email || !this.perfil.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
+
+    if (!regex.test(this.item.email)) {
+      this.messageService.add({ severity: 'error', summary: 'Ups!', detail: `El email ${this.item.email} no es válido.`, life: 5000 }); return
+    }
 
     let dataPost = {
 
       name: this.item.name,
       dni: String(this.item.dni),
       role: this.perfil.id,
-      email: this.item.email
-
+      email: this.item.email,
+      enabled:this.value == 'off'?0:1
     }
     console.log(dataPost)
     const valid: any = await this.usuarioService.editItem(dataPost, this.item.id);
@@ -121,9 +131,17 @@ export class UsuariosComponent {
 
   async saveItem() {
     console.log(this.item, 'crear');
-
     this.submitted = true;
-    if (!this.item.name || this.item.name.length<10 || !this.item.dni || !this.item.email || !this.perfil.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
+
+    //validar email..... Utiliza el método test() para verificar si el email cumple con la expresión regular
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!this.item.name || this.item.name.length < 10 || !this.item.dni || !this.item.email || !this.perfil.id) { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Todos los campos son requeridos', life: 5000 }); return }
+
+    if (!regex.test(this.item.email)) {
+      this.messageService.add({ severity: 'error', summary: 'Ups!', detail: `El email ${this.item.email} no es válido.`, life: 5000 }); return
+    }
+
     let dataPost = {
 
       name: this.item.name,

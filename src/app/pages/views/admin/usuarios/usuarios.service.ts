@@ -111,4 +111,24 @@ export class UsuariosService {
     });
   }
 
+
+  /* async a() {
+
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.user.token,
+      });
+
+      this.http.get('http://18.191.157.220/api/auth/1', { headers }).subscribe({
+        next: (answer: any) => {
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
+  } */
+
 }

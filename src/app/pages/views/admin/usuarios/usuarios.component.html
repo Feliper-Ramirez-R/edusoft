@@ -76,20 +76,20 @@
 
                 <div class="field">
                     <label for="email">Email</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="item.email" required autofocus
-                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.email }" />
+                    <input type="email" pInputText id="name" [(ngModel)]="item.email" required autofocus
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.email }"/>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.email">El campo es requerido.</small>
                 </div>
 
                 <div class="formgrid grid">
-                    <div class="field col">
+                    <div class="field col-6">
                         <label for="dni">Cédula</label>
                         <input type="number" id="dni" pInputText [(ngModel)]="item.dni" autofocus
                             [ngClass]="{ 'ng-invalid ng-dirty': submitted && !item.dni }">
                         <small class="ng-dirty ng-invalid" *ngIf="submitted && !item.dni">El campo es requerido.</small>
                     </div>
 
-                    <div class="field col">
+                    <div class="field col-6">
                         <label for="">Perfil</label>
 
                         <p-dropdown [options]="perfiles" [(ngModel)]="perfil" optionLabel="role"appendTo="body"[readonly]="!crear"
@@ -105,6 +105,10 @@
                         </p-dropdown>
                         <small class="ng-dirty ng-invalid" *ngIf="submitted && !perfil.id">El campo es
                             requerido.</small>
+                    </div>
+                    <div *ngIf="!crear" class="field col-6">
+                        <label class="mb-2">Habilitar / Inhabilitar</label><br>
+                        <p-selectButton styleClass="field" [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>
                     </div>
 
                 </div>

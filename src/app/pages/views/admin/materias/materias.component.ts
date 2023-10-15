@@ -54,6 +54,7 @@ export class MateriasComponent {
     this.crear = true;
     this.item = {};
     this.profesor = {};
+    this.programa = {};
     this.submitted = false;
     this.itemEditDialog = true;
   }

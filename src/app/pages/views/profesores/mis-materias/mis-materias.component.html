@@ -31,7 +31,7 @@
                         <ul *ngFor="let actividad of semana.items" class="checkboxes">
                             <li class="checkbox-row border-1 border-300 mb-1">
                                 <div class="grid ">
-                                    <div class="col-6 m-0 checkbox"
+                                    <div class="col-6 m-0 checkbox" 
                                         [ngClass]="{ 'line-through': actividad.available ==0}">
                                         <i class="{{actividad.type_id == 1?'pi pi-video mt-2':
                                                     actividad.type_id == 2?'pi pi-file-export mt-2':
@@ -219,7 +219,7 @@
                 <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="archivo.archivo" required autofocus
                     (change)="capturarFile($event)"
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !archivo.archivo && crear }" />
-                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.archivo && crear">El item es
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !archivo.archivo && crear">El campo es
                     requerido.</small>
             </div>
 
