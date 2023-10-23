@@ -30,6 +30,10 @@ export class LoginComponent {
     private messageService: MessageService
   ) { }
 
+  atras(){
+    this.router.navigate(['/web/webInstituto'])
+  }
+
 
   async login() {
     this.submitted = true;

@@ -1,32 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { WebMainService } from './web-main.service';
 
 @Component({
-  selector: 'app-web-main',
-  templateUrl: './web-main.component.html',
-  styleUrls: ['./web-main.component.scss']
+  selector: 'app-web-instituto',
+  templateUrl: './web-instituto.component.html',
+  styleUrls: ['./web-instituto.component.scss']
 })
-export class WebMainComponent {
+export class WebInstitutoComponent {
 
- /*  iglesia:boolean = true; */
+  constructor(private router:Router
+                 ){}
 
-  constructor(private router:Router,
-    private menuService:WebMainService){}
-
-
-
-  instituto(){
-    this.router.navigate(['/web/webInstituto'])
+  inicio(){
+    this.router.navigate(['/web/webMain'])
   }
 
- /*  cambiarPagina(){
-    this.hideMenu();
-    this.iglesia = !this.iglesia
-  } */
+  login(){
+    this.router.navigate(['/auth/login'])
+  }
 
-
-   hasClass(element: HTMLElement, className: string): boolean {
+  hasClass(element: HTMLElement, className: string): boolean {
     if (element?.classList) {
       return element.classList.contains(className);
     } else if (element) {

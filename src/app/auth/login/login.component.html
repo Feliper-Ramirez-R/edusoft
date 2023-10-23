@@ -1,4 +1,5 @@
 <div class="login-body" [ngClass]="{'layout-dark': dark, 'layout-light': !dark}">
+    <p-button icon="pi pi-arrow-left" [style]="{ margin: '20px' }" (click)="atras()" styleClass="p-button-rounded p-button-secondary"></p-button>
     <div class="login-content">
         <div class="night-switch">
             <p-button styleClass="dark-switch" icon="pi pi-circle-on" (click)="dark = true"></p-button>
