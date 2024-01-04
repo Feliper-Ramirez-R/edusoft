@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { ConfigService } from './services/app.config.service';
 import { Subscription } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
     providedIn: 'root'
@@ -59,7 +61,9 @@ export class AppTopBarComponent {
     constructor(protected user: AuthService,
                 public app: AppComponent, 
                 public appMain: AppMainComponent, 
-                public configService: ConfigService) { }
+                public configService: ConfigService,
+                private router: Router,
+                private messageService: MessageService) { }
 
                 ngOnInit() {
                     this.config = this.configService.config;
@@ -288,8 +292,24 @@ export class AppTopBarComponent {
         this.activeItem = this.activeItem === index ? null : index;
     }
 
-    logout() {
-        this.user.logout();
+    async logout() {
+
+        const valid: any = await this.user.logout();
+        console.log(valid);
+    
+        if (!valid.error) {
+
+          if (valid.status == 200) {
+
+            localStorage.clear();
+            this.router.navigate(['/auth/login']);
+           
+            // this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
+          } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+        } else {
+          if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+          else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+        }
     }
 
 }

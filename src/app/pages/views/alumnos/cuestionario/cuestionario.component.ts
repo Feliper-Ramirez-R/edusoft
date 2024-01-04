@@ -116,14 +116,14 @@ export class CuestionarioComponent {
     console.log(valid)
     if (!valid.error) {
       if (valid.status == 201) {
-        this.router.navigate(['/pages/mis-programas'])
+        this.router.navigate(['/pages/home'])
         this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
       } else {
         this.messageService.add({ severity: 'error', summary: 'Ups!', detail: valid.message, life: 5000 });
       }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
-      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrio un error!', life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
 
   }

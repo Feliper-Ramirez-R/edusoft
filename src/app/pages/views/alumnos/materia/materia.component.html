@@ -4,7 +4,7 @@
             <p-toolbar styleClass="mb-3">
                 <div class="p-toolbar-group-left flex flex-wrap">
                     <!-- <h5>Materia {{idMateria}}</h5> -->
-                    <h5>{{nombre_materia  | titlecase}}</h5>
+                    <h5>{{nombre_materia | titlecase}}</h5>
                 </div>
 
                 <div class="p-toolbar-group-right">
@@ -33,9 +33,7 @@
                             <li class="checkbox-row border-1 border-300 mb-1">
                                 <div class="grid ">
                                     <div class="col-6 m-0 checkbox"
-                                        [ngClass]="{ 'line-through pointer-events-none': actividad.available ==0}"
-                                        
-                                        >
+                                        [ngClass]="{ 'line-through pointer-events-none': actividad.available ==0}">
                                         <i
                                             class="{{actividad.type_id == 1?'pi pi-video mt-2':
                                                             actividad.type_id == 2?'pi pi-file-export mt-2':
@@ -46,16 +44,20 @@
                                                 href="{{actividad.type_id == 1?actividad.url_class:
                                                               actividad.type_id == 2?actividad.url_host+actividad.url_file:''}}" target="blank">{{actividad.name}}</a></p>
 
-                                        <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"  ><a
-                                                style="cursor: pointer;" 
+                                        <p *ngIf="actividad.type_id == 3 || actividad.type_id == 4"><a
+                                                style="cursor: pointer;"
                                                 (click)="openMostrarCuestionario(actividad)">{{actividad.name}}</a></p>
                                     </div>
 
                                     <div class="col-6 checkbox-row-info ">
-                                            <i *ngIf="actividad.type_id == 2 && actividad.resend == 1" (click)="openEnviarArchivo(actividad)" class="pi pi-upload" pTooltip="Subir archivo" tooltipPosition="top"></i>
+                                        <i *ngIf="actividad.type_id == 2 && actividad.resend == 1"
+                                            (click)="openEnviarArchivo(actividad)" class="pi pi-upload"
+                                            pTooltip="Subir archivo" tooltipPosition="top"></i>
                                         <!-- <i class="pi pi-calendar"></i> -->
-                                            <i *ngIf=" actividad.resend == 1 || actividad.resend == null" class="pi pi-question-circle" (click)="verNota(actividad)" pTooltip="Ver nota" tooltipPosition="top"></i>
-                        
+                                        <i *ngIf=" actividad.resend == 1 || actividad.resend == null"
+                                            class="pi pi-question-circle" (click)="verNota(actividad)"
+                                            pTooltip="Ver nota" tooltipPosition="top"></i>
+
                                     </div>
 
                                 </div>
@@ -70,16 +72,16 @@
 </div>
 
 
-<p-dialog [(visible)]="archivoDialog" [style]="{ width: '450px' }"
-    header="Adjuntar archivo" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="archivoDialog" [style]="{ width: '450px' }" header="Adjuntar archivo" [modal]="true"
+    class="p-fluid">
     <ng-template pTemplate="content">
 
         <div class="formgrid grid">
-            
+
             <div class="field col-12">
                 <label for="email">Archivo</label>
-                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="actividad.archivo" required autofocus
-                    (change)="capturarFile($event)"
+                <input type="file" pInputText accept=".pdf,.docx,.pptx" [(ngModel)]="actividad.archivo" required
+                    autofocus (change)="capturarFile($event)"
                     [ngClass]="{ 'ng-invalid ng-dirty': submitted && !actividad.archivo }" />
                 <small class="ng-dirty ng-invalid" *ngIf="submitted && !actividad.archivo">El item es
                     requerido.</small>
@@ -98,8 +100,7 @@
 </p-dialog>
 
 
-<p-dialog [(visible)]="verNotaDialog" [style]="{ width: '450px' }"
-    header="Nota" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="verNotaDialog" [style]="{ width: '450px' }" header="Nota" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
 
 
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="col-5 icons">
-                            <div >
+                            <div>
                                 {{nota.data}}
                             </div>
                         </div>
@@ -125,7 +126,7 @@
                 </li>
             </ul>
         </div>
-        
+
 
     </ng-template>
 
@@ -139,8 +140,7 @@
 
 
 
-<p-dialog [(visible)]="verNotaFinalDialog" [style]="{ width: '450px' }"
-    header="Nota" [modal]="true" class="p-fluid">
+<p-dialog [(visible)]="verNotaFinalDialog" [style]="{ width: '450px' }" header="Nota" [modal]="true" class="p-fluid">
     <ng-template pTemplate="content">
 
 
@@ -158,7 +158,7 @@
                             </div>
                         </div>
                         <div class="col-5 icons">
-                            <div >
+                            <div>
                                 {{notaFinal.finalScore}}
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                 </li>
             </ul>
         </div>
-        
+
 
     </ng-template>
 

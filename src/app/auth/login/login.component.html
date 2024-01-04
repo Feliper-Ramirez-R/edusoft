@@ -1,6 +1,6 @@
 <div class="login-body" [ngClass]="{'layout-dark': dark, 'layout-light': !dark}">
-    <p-button icon="pi pi-arrow-left" [style]="{ margin: '20px' }" (click)="atras()" styleClass="p-button-rounded p-button-secondary"></p-button>
     <div class="login-content">
+        <!-- <p-button icon="pi pi-arrow-left" (click)="atras()" styleClass="p-button-rounded p-button-secondary"></p-button> -->
         <div class="night-switch">
             <p-button styleClass="dark-switch" icon="pi pi-circle-on" (click)="dark = true"></p-button>
             <p-button styleClass="light-switch" icon="pi pi-circle-off" (click)="dark = false"></p-button>
@@ -43,6 +43,9 @@
                     </div>
                     <div class="buttons mt-5">
                         ¿No tienes cuenta? <a routerLink="/auth/register" class="secondary-button">Regístrate</a>
+                    </div>
+                    <div class="buttons mt-5">
+                         <a routerLink="/web/webInstituto" class="secondary-button">Volver al instituto</a>
                     </div>
                 </form>
             </div>

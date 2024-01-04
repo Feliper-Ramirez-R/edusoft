@@ -1,18 +1,54 @@
 
-    <div class="card">
-        <div>
-            
-            <span class="text-xl font-normal text-gray-600">Mi perfil</span>
-           
-            <div class="flex justify-content-center flex-wrap card-container">
-                <div class="flex align-items-center justify-content-center border-circle w-8rem h-8rem bg-indigo-400 font-bold text-gray-900 border-round m-2"><span class="text-7xl font-normal text-white">{{user.user.name[0] | titlecase}}</span></div>
+
+
+
+<div *ngIf="user.user.role !=5 && user.user.role !=6 " class="grid layout-dashboard">
+
+
+
+    
+    <div class="col-12 lg:col-4 md:col-4">
+        <div class="card widget-download-files">
+            <div class="card-header">
+                <div class="title">
+                    <h5>Usuarios en linea</h5>
+                </div>
             </div>
-            <div class="flex align-items-center justify-content-center font-bold text-gray-900 m-2"><span class="text-3xl font-normal text-gray-600">{{user.user.role_name | titlecase}}</span></div>
-            <div >
+            <div class="widget-team">
+                <ul>
+                    <li *ngFor="let alum of users_in_line">
+                        <div class="grid member">
+                            <div class="col-10 team-box">
+                                <div class="profile-image">
+                                    <img src="assets/images/user.png" alt="mirage-layout" />
+                                </div>
+                                <div>
+                                    <h6 class="team-member">{{alum.name}}</h6>
+                                    <span class="team-member-role">{{alum.email}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="card ">
+            <span class="text-xl font-normal text-gray-600">Mi perfil</span>
+        
+            <div class="flex justify-content-center flex-wrap card-container">
+                <div
+                    class="flex align-items-center justify-content-center border-circle w-5rem h-5rem bg-indigo-400 font-bold text-gray-900 border-round m-2">
+                    <span class="text-5xl font-normal text-white">{{user.user.name[0] | titlecase}}</span></div>
+            </div>
+            <div class="flex align-items-center justify-content-center font-bold text-gray-900 m-2"><span
+                    class="text-2xl font-normal text-gray-600">{{user.user.role_name | titlecase}}</span></div>
+            <div>
                 <p-divider layout="horizontal"></p-divider>
             </div>
-
-
+        
+        
             <div class="col-12">
                 <div class=" widget-team">
                     <ul>
@@ -27,7 +63,7 @@
                                         <span class="team-member-role">{{user.user.name}}</span>
                                     </div>
                                 </div>
-                               
+        
                             </div>
                         </li>
                         <li>
@@ -58,7 +94,22 @@
                         </li>
                     </ul>
                 </div>
-            </div>  
+            </div>
         </div>
+
+
     </div>
+
+
+    <!-- <div class="col-12 lg:col-8 md:col-8 ">
+        <div class="card">    
+            <full-calendar [options]="calendarOptions"[events]="events"></full-calendar>
+        </div>
+    </div> -->
+
+
+
+
+</div>
+
 

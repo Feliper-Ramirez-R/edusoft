@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(dataPost: any) {
-    console.log(rutas.ruta + this.prefix + '/login');
+    // console.log(rutas.ruta + this.prefix + '/login');
 
     return new Promise((resolve) => {
       this.http.post(rutas.ruta + this.prefix + '/login', dataPost).subscribe({
@@ -69,8 +69,24 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear();
-    this.router.navigate(['/auth/login']);
+    console.log(this.token);
+    
+    return new Promise(resolve => {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer ' + this.token,
+      });
+
+      this.http.get(rutas.ruta + this.prefix+'/logout', { headers }).subscribe({
+        next: (answer: any) => {
+         
+          resolve(answer);
+        },
+        error: error => {
+          console.log(<any>error);
+          resolve(error);
+        }
+      });
+    });
   }
 
 }
