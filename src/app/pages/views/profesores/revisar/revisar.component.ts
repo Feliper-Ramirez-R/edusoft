@@ -86,7 +86,9 @@ export class RevisarComponent {
       if (valid.status == 200) {
 
 
-      } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
+      } else {
+         this.router.navigate(['/pages/estudiantesRevisar/'+this.actividadNumero])
+         this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
       else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }

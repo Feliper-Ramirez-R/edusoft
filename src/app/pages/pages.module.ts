@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PagesRoutingModule } from './pages-routing.module';
-import { HomeComponent } from './views/admin/home/home.component';
+import { HomeComponent } from './views/home/home.component';
 import { UsuariosComponent } from './views/admin/usuarios/usuarios.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -56,9 +56,6 @@ import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revi
 import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';
 import { NotasFinalesPipe } from './views/profesores/notas-finales/notas-finales.pipe';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { HomeVisitantesComponent } from './views/home-visitantes/home-visitantes.component';
-import { HomeProfesoresComponent } from './views/profesores/home-profesores/home-profesores.component';
-import { HomeAlumnosComponent } from './views/alumnos/home-alumnos/home-alumnos.component';
 import { CalendarModule } from 'primeng/calendar';
 
 
@@ -86,9 +83,7 @@ import { CalendarModule } from 'primeng/calendar';
     EstudiantesRevisarComponent,
     NotasFinalesComponent,
     NotasFinalesPipe,
-    HomeVisitantesComponent,
-    HomeProfesoresComponent,
-    HomeAlumnosComponent
+    HomeComponent
   ],
   imports: [
     PagesRoutingModule,

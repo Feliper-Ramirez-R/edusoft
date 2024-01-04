@@ -1,0 +1,385 @@
+
+<!-- mi perfil publico -->
+<div class="card col-12 ">
+    <span class="text-xl font-normal text-gray-600">Mi perfil</span>
+
+    <div class="flex justify-content-center flex-wrap card-container">
+        <div
+            class="flex align-items-center justify-content-center border-circle w-2rem h-2rem bg-indigo-400 font-bold text-gray-900 border-round m-2">
+            <span class="text-xl font-normal text-white">{{user.user.name[0] | titlecase}}</span>
+        </div>
+    </div>
+    <div class="flex align-items-center justify-content-center font-bold text-gray-900 m-2"><span
+            class="text-xl font-normal text-gray-600">{{user.user.role_name | titlecase}}</span></div>
+    <div>
+        <p-divider layout="horizontal"></p-divider>
+    </div>
+
+
+    <div class="col-12 ">
+        <div class=" widget-team">
+            <ul>
+                <li >
+                    <div class="grid member">
+                        <div class="col-12 lg:col md:col team-box">
+                            <p-divider layout="vertical"></p-divider>
+                            <div class="profile-image">
+                                <i class="pi pi-user" style="font-size: 1.5rem"></i>
+                            </div>
+                            <div>
+                                <h6 class="team-member">Nombre</h6>
+                                <span class="team-member-role">{{user.user.name}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 lg:col md:col team-box">
+                            <p-divider layout="vertical"></p-divider>
+                            <div class="profile-image">
+                                <i class="pi pi-envelope" style="font-size: 1.5rem"></i>
+                            </div>
+                            <div>
+                                <h6 class="team-member">Correo</h6>
+                                <span class="team-member-role">{{user.user.email}}</span>
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col md:col team-box">
+                            <p-divider layout="vertical"></p-divider>
+                            <div class="profile-image">
+                                <i class="pi pi-id-card" style="font-size: 1.5rem"></i>
+                            </div>
+                            <div>
+                                <h6 class="team-member">N° de identificación</h6>
+                                <span class="team-member-role">{{user.user.dni}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------ administradores --------------------------------->
+<div *ngIf="user.user.role ==1 || user.user.role ==2 " class="grid layout-dashboard">
+ 
+    <div class="col-12 lg:col-6 md:col-6">
+        <div class="card widget-download-files">
+            <div class="card-header">
+                <div class="title">
+                    <h5>Usuarios en linea</h5>
+                </div>
+            </div>
+            <div class="widget-team">
+                <ul>
+                    <li *ngFor="let alum of users_in_line">
+                        <div class="grid member">
+                            <div class="col-10 team-box">
+                                <div class="profile-image">
+                                    <img src="assets/images/user.png" alt="mirage-layout" />
+                                </div>
+                                <div>
+                                    <h6 class="team-member">{{alum.name}}</h6>
+                                    <span class="team-member-role">{{alum.email}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 md:col-6 ">
+        <div class="card">    
+            <full-calendar [options]="calendarOptions"[events]="events"></full-calendar>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------- Profesores ----------------------------------->
+<div *ngIf="user.user.role ==4 " class="grid layout-dashboard">
+
+    <div class="col-12 lg:col-6 md:col-6">
+        <div class="card widget-download-files">
+            <div class="card-header">
+                <div class="title">
+                    <h5>Usuarios en linea</h5>
+                </div>
+            </div>
+            <div class="widget-team">
+                <ul>
+                    <li *ngFor="let alum of users_in_line">
+                        <div class="grid member">
+                            <div class="col-10 team-box">
+                                <div class="profile-image">
+                                    <img src="assets/images/user.png" alt="mirage-layout" />
+                                </div>
+                                <div>
+                                    <h6 class="team-member">{{alum.name}}</h6>
+                                    <span class="team-member-role">{{alum.email}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 md:col-6 ">
+        <div class="card">    
+            <full-calendar [options]="calendarOptions"[events]="events"></full-calendar>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-------------------------------- Estudiantes ----------------------------------------->
+<div *ngIf="user.user.role ==5" class="grid layout-dashboard">
+
+    <div class="col-12 lg:col-3 md:col-3">
+        <div class="card widget-download-files">
+            <div class="card-header">
+                <div class="title">
+                    <h5>Usuarios en linea</h5>
+                </div>
+            </div>
+            <div class="widget-team">
+                <ul>
+                    <li *ngFor="let alum of users_in_line">
+                        <div class="grid member">
+                            <div class="col-10 team-box">
+                                <div class="profile-image">
+                                    <img src="assets/images/user.png" alt="mirage-layout" />
+                                </div>
+                                <div>
+                                    <h6 class="team-member">{{alum.name}}</h6>
+                                    <span class="team-member-role">{{alum.email}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 lg:col-5 md:col-5">
+        <div class="card widget-tasks widget-download-files">
+            <div class="card-header">
+                <div class="title">
+                    <h5>Tareas</h5>
+                </div>
+                <div class=" task-info">
+                    <span>Tienes</span><span class="highlighted"> {{actividades_pendientes.length}} tareas</span><span>
+                        por hacer</span>
+                </div>
+            </div>
+
+            <div class="widget-team">
+                <ul class="checkboxes">
+                    <li *ngFor="let act of actividades_pendientes" class="checkbox-row">
+                        <div class="grid">
+                            <div class="col-9 checkbox">
+                                <p>{{act.name}}</p>
+                            </div>
+                            <div class="col-3 checkbox-row-info">
+                                <span class="time">semana {{act.week_number}}</span>
+                                <a *ngIf="act.type_id == 2" href="{{act.url_host+act.url_file}}" target="_blank"><i
+                                        class="pi pi-tag"></i></a>
+                                <i *ngIf="act.type_id != 2" class="pi pi-tag" (click)="openMostrarCuestionario(act)"></i>
+                                <!-- <i class="pi pi-calendar"></i>
+                                <i class="pi pi-bookmark"></i> -->
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+           
+        </div>
+    </div>
+    <div class="col-12 lg:col-4 md:col-4 ">
+        <div class="card">    
+            <full-calendar [options]="calendarOptions"[events]="events"></full-calendar>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!----------------------------------------- Modales ---------------------------------------------->
+
+<p-dialog #dd [(visible)]="showDialog" [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [style]="{width: '36rem'}" [modal]="true" [closable]="true" (onHide)="view = ''">
+    <ng-template pTemplate="header">
+        <span class="text-900 font-semibold text-xl">{{view === 'display' ? changedEvent.title : view === 'new' ? 'Nuevo evento' : 'Editar evento'}}</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div *ngIf="view === 'display'">
+            <span class="text-900 font-semibold block mb-2">Description</span>
+            <span class="block mb-3">{{changedEvent.description}}</span>
+            <div class="grid">
+                <div class="col-6">
+                    <div class="text-900 font-semibold mb-2">Inicio</div>
+                    <p class="flex align-items-center m-0">
+                        <i class="pi pi-fw pi-clock text-700 mr-2"></i>
+                        <span>{{changedEvent.start.toISOString().slice(0,10)}}</span>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <div class="text-900 font-semibold mb-2">Fin</div>
+                    <p class="flex align-items-center m-0">
+                        <i class="pi pi-fw pi-clock text-700 mr-2"></i>
+                        <span>{{changedEvent.end.toISOString().slice(0,10)}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="view !== 'display'">
+            <div class="grid p-fluid formgrid">
+                <div class="col-12 field">
+                    <label for="title" class="text-900 font-semibold">Titulo</label>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-pencil"></i>
+                        <input id="title" type="text" pInputText placeholder="Titulo" [(ngModel)]="changedEvent.title" />
+                    </span>
+                </div>
+                <div class="col-12 field">
+                    <label for="description" class="text-900 font-semibold">Descripción</label>
+                    <textarea id="description" type="text" pInputTextarea [rows]="5" [(ngModel)]="changedEvent.description" style="resize: none"></textarea>
+                </div>
+
+                <div class="col-12 md:col-6 field">
+                    <label for="start" class="text-900 font-semibold">Fecha inicio</label>
+                    <p-calendar [appendTo]="dd" dateFormat="mm-dd-yy" [maxDate]="changedEvent.end" [showTime]="true" [required]="true" inputId="start" [(ngModel)]="changedEvent.start"></p-calendar>
+                </div>
+                <div class="col-12 md:col-6 field">
+                    <label for="start" class="text-900 font-semibold">Fecha fin</label>
+                    <p-calendar [appendTo]="dd" dateFormat="mm-dd-yy" [minDate]="changedEvent.start" [showTime]="true" [required]="true" inputId="end" [(ngModel)]="changedEvent.end"></p-calendar>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton *ngIf="view === 'display' && user.user.role !=5" label="Borrar" icon="pi pi-trash"  class="p-button-danger" (click)="deleteModal()"></button>
+        <button pButton *ngIf="view === 'display' && user.user.role !=5" label="Editar" icon="pi pi-pencil" (click)="onEditClick()"></button>
+        <button pButton *ngIf="view === 'new' || view === 'edit'" label="Guardar" icon="pi pi-check" (click)="view === 'new'?guardarEvento():editarEvento()" [disabled]="!changedEvent.start || !changedEvent.end"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="itemDeleteDialog" header="Eliminar un usuario" [modal]="true" [style]="{ width: '450px' }">
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="changedEvent" >Esta seguro que quieres eliminar el evento <b>{{ changedEvent.title }}</b>?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+            (click)="itemDeleteDialog = false"></button>
+         <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si"
+            (click)="delete(changedEvent)"></button>
+    </ng-template>
+</p-dialog>
+
+

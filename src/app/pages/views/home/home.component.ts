@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import esLocale from '@fullcalendar/core/locales/es'
+import esLocale from '@fullcalendar/core/locales/es';
 
 
 @Component({
@@ -17,9 +17,8 @@ import esLocale from '@fullcalendar/core/locales/es'
 export class HomeComponent {
 
   events: any[] = [];
-
   today: string = '';
-
+  
   showDialog: boolean = false;
   itemDeleteDialog: boolean = false;
   clickedEvent: any = null;
@@ -45,6 +44,7 @@ export class HomeComponent {
     this.today = new Date().toISOString().split('T')[0];
     this.getUsersOnline();
     this.getEventos();
+    this.getActividades();
 
     this.calendarOptions = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -74,7 +74,6 @@ export class HomeComponent {
 
 
   openMostrarCuestionario(actividad: any) {
-    console.log(actividad);
 
     this.router.navigate(['/pages/cuestionario', actividad.id])
   }
@@ -94,6 +93,27 @@ export class HomeComponent {
       } else { return /* this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); */ }
     } else {
       if (valid.status != 500) { return this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); }
+      else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
+    }
+  }
+
+
+
+  async getActividades() {
+
+    const valid: any = await this.homeService.getActividades();
+    console.log(valid);
+
+    if (!valid.error) {
+
+      this.actividades_pendientes = valid.penddings;
+
+      if (valid.status == 200) {
+
+        // this.messageService.add({ severity: 'success', summary: 'Bien!', detail: valid.message, life: 5000 });
+      } else { return /* this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); */ }
+    } else {
+      if (valid.status != 500) { return /* this.messageService.add({ severity: 'info', summary: 'Ups!', detail: valid.error.message, life: 5000 }); */ }
       else { this.messageService.add({ severity: 'error', summary: 'Ups!', detail: 'Ocurrió un error!', life: 5000 }); }
     }
   }
@@ -241,8 +261,8 @@ export class HomeComponent {
     }
   }
 
-  deleteModal(evento:any) {
-    console.log(evento);
+  deleteModal() {
+  
     this.showDialog = false;
     this.itemDeleteDialog = true;
   }

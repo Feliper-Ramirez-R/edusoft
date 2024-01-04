@@ -225,6 +225,7 @@ export class MisMateriasComponent {
   }
 
   openNewLibre() {
+    this.preguntasLibres = [];
     this.crear = true
     this.libre = {};
     this.submitted = false;

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
-import { HomeComponent } from './views/admin/home/home.component';
+import { HomeComponent } from './views/home/home.component';
 import { UsuariosComponent } from './views/admin/usuarios/usuarios.component';
 import { GruposComponent } from './views/admin/grupos/grupos.component';
 import { MateriasComponent } from './views/admin/materias/materias.component';
@@ -15,9 +15,6 @@ import { NotasActividadComponent } from './views/profesores/notas-actividad/nota
 import { ProgramasComponent } from './views/admin/programas/programas.component';
 import { EstudiantesRevisarComponent } from './views/profesores/estudiantes-revisar/estudiantes-revisar.component';
 import { NotasFinalesComponent } from './views/profesores/notas-finales/notas-finales.component';
-import { HomeAlumnosComponent } from './views/alumnos/home-alumnos/home-alumnos.component';
-import { HomeProfesoresComponent } from './views/profesores/home-profesores/home-profesores.component';
-import { HomeVisitantesComponent } from './views/home-visitantes/home-visitantes.component';
 
 
 
@@ -30,21 +27,6 @@ const routes: Routes = [
         {
             path:'home',
             component: HomeComponent,
-            canActivate:[AuthGuard]
-        }, 
-        {
-            path:'homealumnos',
-            component: HomeAlumnosComponent,
-            canActivate:[AuthGuard]
-        }, 
-        {
-            path:'homeprofesores',
-            component: HomeProfesoresComponent,
-            canActivate:[AuthGuard]
-        }, 
-        {
-            path:'homevisitantes',
-            component: HomeVisitantesComponent,
             canActivate:[AuthGuard]
         }, 
         {
