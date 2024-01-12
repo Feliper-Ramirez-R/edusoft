@@ -13,7 +13,7 @@ export class NotasFinalesPipe implements PipeTransform {
    }
    texto = texto.toLowerCase();
    return arreglo.filter(item => {
-     return item.user?.toLowerCase().includes(texto)
+     return item.name?.toLowerCase().includes(texto)
    }); 
     
      }

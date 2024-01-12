@@ -49,29 +49,7 @@ export class LoginComponent {
 
     if (!valid.error) {
       if (valid.status == 200) {
-
-
-        switch (valid.user[0].role) {
-          case 2:
-            this.router.navigate(['/pages/home'])
-            break;
-
-          case 1:
-            this.router.navigate(['/pages/home'])
-            break;
-
-          case 4:
-            this.router.navigate(['/pages/homeprofesores'])
-            break;
-
-          case 5:
-            this.router.navigate(['/pages/homealumnos'])
-            break;
-        
-          default:
-            this.router.navigate(['/pages/homevisitantes'])
-            break;
-        }
+        this.router.navigate(['/pages/home'])
 
       } else { return this.messageService.add({ severity: 'info', summary: 'Info!', detail: valid.message, life: 5000 }); }
     } else {
