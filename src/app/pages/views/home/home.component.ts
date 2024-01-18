@@ -29,7 +29,11 @@ export class HomeComponent {
   changedEvent: any;
 
   calendarOptions: any = {
-    initialView: 'dayGridMonth'
+  initialView: 'dayGridMonth'
+  };
+
+  calendarOptions_estudiantes: any = {
+  initialView: 'dayGridMonth'
   };
 
   users_in_line: any[] = [];
@@ -60,8 +64,6 @@ export class HomeComponent {
         const month1 = info.view.currentStart.getMonth() + 1; // Obtén el mes actual (0-11)
         const year = info.view.currentStart.getFullYear(); // Obtén el año actual
         const month2 = ('0' + month1).slice(-2);
-        console.log(month2);
-        console.log(year);
       },
       editable: false,
       selectable: true,
@@ -69,6 +71,20 @@ export class HomeComponent {
       dayMaxEvents: true,
       eventClick: (e: MouseEvent) => this.onEventClick(e),
       select: (e: MouseEvent) => this.onDateSelect(e)
+    };
+
+    this.calendarOptions_estudiantes = {
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      locale: esLocale,
+      height: 500,
+      initialDate: this.today,
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: '',
+      },
+      selectable: true,
+      eventClick: (e: MouseEvent) => this.onEventClick(e),
     };
   }
 
