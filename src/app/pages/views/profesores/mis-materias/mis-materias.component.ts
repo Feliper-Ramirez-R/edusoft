@@ -248,7 +248,7 @@ export class MisMateriasComponent {
     this.grupo = { id: item.grupe_id, name: item.grupe_name };
     this.crear = false
     this.video = { ...item };
-    item.available == 1 ? this.checked = true : false
+    if( this.video.available == 0){this.checked = false}else{this.checked = true}
     this.videoDialog = true;
     console.log(this.video);
   }
@@ -260,7 +260,7 @@ export class MisMateriasComponent {
     this.grupo = item.group;
     this.crear = false
     this.archivo = { ...item };
-    item.available == 1 ? this.checkedArchivo = true : false
+    if(this.archivo.available == 0){this.checkedArchivo = false}else{this.checkedArchivo = true}
     this.archivoDialog = true;
     console.log(this.archivo);
     item.resend == 1 ? this.value = 'on' : 'off';
@@ -273,7 +273,7 @@ export class MisMateriasComponent {
     this.tiempo = { id: item.duration, name: item.duration + ' minutos' }
     this.crear = false
     this.cuestionario = { ...item };
-    item.available == 1 ? this.checkedCuestionario = true : false
+    if(this.cuestionario.available == 0){this.checkedCuestionario = false}else{this.checkedCuestionario = true}
     this.cuestionarioDialog = true;
     console.log(this.cuestionario);
   }
@@ -286,7 +286,7 @@ export class MisMateriasComponent {
     this.tiempo = { id: item.duration, name: item.duration + ' minutos' }
     this.crear = false
     this.libre = { ...item };
-    item.available == 1 ? this.checkedLibre = true : false
+    if( this.libre.available == 0){ this.checkedLibre = false}else{ this.checkedLibre = true}
     this.libreDialog = true;
     console.log(this.libre);
   }
