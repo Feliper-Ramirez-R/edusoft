@@ -453,6 +453,7 @@ export class MisMateriasComponent {
 
       if (valid.status == 201) {
         this.cuestionario = {};
+        this.preguntas = [];
         this.submitted = false;
         this.cuestionarioDialog = false;
         this.getMisMaterias();

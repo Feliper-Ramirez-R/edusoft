@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NotasFinalesService } from './notas-finales.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+/* import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver'; */
 
 
 const EXCEL_TYPE =
@@ -39,14 +39,14 @@ export class NotasFinalesComponent {
 
   async exportAsXLSX(): Promise<void> {
 
-    if(this.excel.length == 0){return}
+   /*  if(this.excel.length == 0){return}
 
    let data= this.excel
  
-   this.exportAsExcelFile(data, 'Exportable');
+   this.exportAsExcelFile(data, 'Exportable'); */
  }
 
- public exportAsExcelFile(json: any[], excelFileName: string): void {
+/*  public exportAsExcelFile(json: any[], excelFileName: string): void {
   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
   const workbook: XLSX.WorkBook = {
     Sheets: { data: worksheet },
@@ -64,7 +64,7 @@ private saveAsExcelFile(buffer: any, fileName: string): void {
     data,
     fileName + '-' + new Date().toLocaleString("es-ES", { day: "2-digit", month: "long", year: "numeric" }) + EXCEL_EXTENSION
   );
-}
+} */
 
 
 
